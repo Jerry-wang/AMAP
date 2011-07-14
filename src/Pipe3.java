@@ -16,8 +16,6 @@ public class Pipe3 {
          public void run() {
             CreateGui.init();
          }
-
       });
    }
-
 }

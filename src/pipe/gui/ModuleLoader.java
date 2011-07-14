@@ -23,12 +23,11 @@ public class ModuleLoader{
    }
    
    public static Class importModule(File modFile) {
-      Class modClass = null;
+       Class modClass = null;
       
       if (modFile.exists() && modFile.isFile() && modFile.canRead()) {
          String className = getClassName(modFile);
-         
-         modFile = modFile.getParentFile();
+          modFile = modFile.getParentFile();
          
          while (!modFile.getName().endsWith("pipe")){
             modFile = modFile.getParentFile();
@@ -69,11 +68,13 @@ public class ModuleLoader{
    
    public static boolean isModule(Class modClass) {
       Class interfaces[] = modClass.getInterfaces();
-      
+      if(modClass.getName()=="pipe.modules.AvionicsModule")
+    	  return false;
       for (Class anInterface : interfaces) {
-         if (anInterface.getName() == "pipe.modules.Module") {
+         if ((anInterface.getName() == "pipe.modules.Module")||(anInterface.getName() == "pipe.modules.AvionicsModule")) {
             return true;
          }
+         
       }         
       return false;
    }

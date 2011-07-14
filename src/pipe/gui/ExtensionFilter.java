@@ -20,7 +20,7 @@ public class ExtensionFilter
 
    
    public boolean accept(File f) {
-      return f.isDirectory() 
+       return f.isDirectory() 
              || f.getName().toLowerCase().endsWith(myExtensionString);
    }	// Don't want directories, especially ones which end with the desired extension!
 

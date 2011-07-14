@@ -1,9 +1,5 @@
 package pipe.gui;
 
-import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
-import javax.swing.KeyStroke;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -19,17 +15,17 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.ArrayList;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import javax.swing.AbstractAction;
 
+import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -65,7 +61,6 @@ import pipe.common.dataLayer.DataLayerInterface;
 import pipe.common.dataLayer.DataLayerWriter;
 import pipe.common.dataLayer.GroupTransition;
 import pipe.common.dataLayer.Marking;
-import pipe.common.dataLayer.NormalArc;
 import pipe.common.dataLayer.PNMLTransformer;
 import pipe.common.dataLayer.PetriNetObject;
 import pipe.common.dataLayer.TNTransformer;
@@ -129,6 +124,9 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 
 	private EditAction copyAction, cutAction, pasteAction, undoAction,
 			redoAction;
+	
+	private ModelAction guideAction;
+	
 	private GridAction toggleGrid;
 	private ZoomAction zoomOutAction, zoomInAction, zoomAction;
 	private DeleteAction deleteAction;
@@ -431,6 +429,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		
 		JMenu modelMenu = new JMenu("建模(M) ");
 		modelMenu.setMnemonic('M');
+		addMenuItem(modelMenu, guideAction = new ModelAction("建模向导","以向导的方式对航电系统进行Petri网建模", "G")); 
 		
 
 		JMenu viewMenu = new JMenu("查看(V) ");
@@ -1864,8 +1863,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 
 		public void actionPerformed(ActionEvent e) {
 
-			if (CreateGui.getApp().isEditionAllowed()) {
-				if (this == cutAction) {
+ 				if (this == cutAction) {
 					ArrayList selection = appView.getSelectionObject()
 							.getSelection();
 					appGui.getCopyPasteManager().doCopy(selection, appView);
@@ -1888,7 +1886,40 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 				} else if (this == redoAction) {
 					appView.getUndoManager().doRedo();
 				}
-			}
+ 		}
+	}
+	
+	/**
+	 * 
+	 * @author Jerry-wang
+	 * 2011年7月14日 新加 主要处理建模button下面相关
+	 *
+	 */
+	class ModelAction extends GuiAction{
+
+		ModelAction(String name, String tooltip, String keystroke) {
+			super(name, tooltip, keystroke);
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			if (this == guideAction) {
+				System.out.println("guideAction");
+					/*ArrayList selection = appView.getSelectionObject()
+							.getSelection();
+					appGui.getCopyPasteManager().doCopy(selection, appView);
+					appView.getUndoManager().newEdit(); // new "transaction""
+					appView.getUndoManager().deleteSelection(selection);
+					appView.getSelectionObject().deleteSelection();
+					pasteAction.setEnabled(appGui.getCopyPasteManager()
+							.pasteEnabled());*/
+				} /*else if (this == copyAction) {
+					appGui.getCopyPasteManager().doCopy(
+							appView.getSelectionObject().getSelection(),
+							appView);
+					pasteAction.setEnabled(appGui.getCopyPasteManager()
+							.pasteEnabled());
+				}  */
+			 
 		}
 	}
 

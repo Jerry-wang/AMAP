@@ -26,13 +26,14 @@ public class ModuleClassContainer {
 
       try {
          Constructor ct = thisClass.getDeclaredConstructor(new Class[0]);
+         System.out.println(cl+"1");
          Object moduleObj = ct.newInstance(new Object[0]);
          
          // invoke the name method for display
          Method meth = thisClass.getMethod("getName", new Class[0]);
          displayName = (String)meth.invoke(moduleObj, new Object[0]);
       } catch (Throwable e) {
-         System.out.println("Error in ModuleClass instantiation: " + 
+          System.out.println("Error in ModuleClass instantiation: " + 
                  e.toString());
          displayName = "(Error in module instantiation)";
       }

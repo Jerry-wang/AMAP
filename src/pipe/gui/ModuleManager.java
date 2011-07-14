@@ -2,8 +2,8 @@ package pipe.gui;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -29,6 +29,7 @@ import javax.swing.tree.TreeSelectionModel;
 import pipe.common.dataLayer.DataLayer;
 import pipe.common.dataLayer.DataLayerInterface;
 import pipe.io.JarUtilities;
+import pipe.modules.AvionicsModule;
 
 
 /**
@@ -45,14 +46,18 @@ import pipe.io.JarUtilities;
  * Jtree which were subsequently never used. Now only loading the run method of 
  * each of the modules. (Jan,2007)
  * @author Pere Bonet - JAR May 2007
+ * 
+ * 
+ * add by Jerry-wang 这里我们做一个约定，  
  */
 public class ModuleManager {
 
    private HashSet installedModules;
    private JTree moduleTree;
    private DefaultTreeModel treeModel;
-   private DefaultMutableTreeNode load_modules;
-   private final String loadNodeString = "Find Module";
+   private DefaultMutableTreeNode load_modules, avionics_modules;
+//   private final String loadNodeString = "Find Module";
+   private final String loadNodeString = "自定义模块";
    Component parent;
 
    
@@ -68,12 +73,11 @@ public class ModuleManager {
     * 
     * Matthew - modified to access module folder directly
     */   
-   public File getModuleDir() {
+   public File getModuleDir() { 
       File modLocation = new File(ExtFileManager.getClassRoot(this.getClass()),
               System.getProperty("file.separator") + "pipe" +
               System.getProperty("file.separator") + "modules");
-      
-      if (!modLocation.exists()) { 
+       if (!modLocation.exists()) { 
          System.out.println("Unable to find Module directory: " +
                  modLocation.getPath());
       }
@@ -104,10 +108,10 @@ public class ModuleManager {
          return classes;
       }      
       for (int i = 0 ; i < children.length ; i++) {
-         if ((children[i]).isDirectory()) {
+           if ((children[i]).isDirectory()) {
             classes.addAll(getModuleClasses(children[i]));
          } else if (class_files.accept(children[i])) {
-            aModuleClass = ModuleLoader.importModule(children[i]);
+             aModuleClass = ModuleLoader.importModule(children[i]);
             if (aModuleClass != null) {
                classes.addElement(aModuleClass);
             }
@@ -130,9 +134,11 @@ public class ModuleManager {
     * Matthew - modified to reduce unnecessary reflection, now only loading 
     * the run method of each module class into the tree
     */
-   private void addClassToTree(Class moduleClass) {
+   //这个方法重写一下，加一个参数，用来区分是“普通模块”，还是“航电系统专用模块”
+   private void addClassToTree(Class moduleClass, DefaultMutableTreeNode parent) {
+ 	   
       DefaultMutableTreeNode modNode = null;
-      if (installedModules.add(moduleClass)) {
+       if (installedModules.add(moduleClass)) {
          modNode = new DefaultMutableTreeNode(new ModuleClassContainer(moduleClass));
          
          Class[] desiredParams ={new DataLayer().getClass()};
@@ -143,7 +149,7 @@ public class ModuleManager {
             m.setName(modNode.getUserObject().toString()); 
             modNode.add(new DefaultMutableTreeNode(m));
          } catch (SecurityException e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
          } catch (NoSuchMethodException e) {
             e.printStackTrace();
          }
@@ -151,8 +157,8 @@ public class ModuleManager {
          if (modNode.getChildCount() == 1) {
             Object m = ((DefaultMutableTreeNode)modNode.getFirstChild()).
                     getUserObject();
-            load_modules.add(new DefaultMutableTreeNode(m));
-         } else load_modules.add(modNode);
+            parent.add(new DefaultMutableTreeNode(m));
+         } else parent.add(modNode);
       }
    }
       
@@ -160,14 +166,13 @@ public class ModuleManager {
    public JTree getModuleTree() {
       // get the names of all the classes that are confirmed to be modules
       Vector names = new Vector(); 
-      Vector classes = new Vector();
+      Vector classes = new Vector();  
 
       URL modulesDirURL = Thread.currentThread().getContextClassLoader().
               getResource("pipe" + System.getProperty("file.separator") +
               "modules" + System.getProperty("file.separator"));
-         
-      if (JarUtilities.isJarFile(modulesDirURL)) {
-         try {
+       if (JarUtilities.isJarFile(modulesDirURL)) {
+          try {
             JarFile jarFile = new JarFile(JarUtilities.getJarName(modulesDirURL));
             ArrayList <JarEntry> modules = 
                     JarUtilities.getJarEntries(jarFile, "modules");
@@ -176,44 +181,53 @@ public class ModuleManager {
                if (modules.get(i).getName().toLowerCase().endsWith(".class")){
                   Class aModuleClass = ModuleLoader.importModule(modules.get(i));
                   if (aModuleClass != null) {
-                     classes.add(aModuleClass);
+                      classes.add(aModuleClass);
                   }
                }
             }
          } catch (IOException ex) {
             ex.printStackTrace();
          }
-      } else { 
-         File dir = getModuleDir();
-         
+      } else {  
+          File dir = getModuleDir();
          // get the names of all the classes that are confirmed to be modules
-         names = getModuleClasses(dir);
-         classes.addAll(names);
+          names = getModuleClasses(dir);
+          classes.addAll(names);
       }
       
       // create the root node
       DefaultMutableTreeNode root = 
-               new DefaultMutableTreeNode("Analysis Module Manager");
+    	  		new DefaultMutableTreeNode("分析模块");
+//               new DefaultMutableTreeNode("Analysis Module Manager");
       
       // create root children
-      load_modules = new DefaultMutableTreeNode("Available Modules");
+      load_modules = new DefaultMutableTreeNode("通用模块");
+      avionics_modules = new DefaultMutableTreeNode("航电系统专用模块");
       
       DefaultMutableTreeNode add_modules = 
                new DefaultMutableTreeNode(loadNodeString);
       
       // iterate over the class names and create a node for each
       Iterator iterator = classes.iterator();
-      while (iterator.hasNext()) {
+      while (iterator.hasNext()) {//这里按照类别加载模块
+    	 Class temp =  (Class)iterator.next();
          try{
+        
             // create each ModuleClass node using an instantiation of the 
             // ModuleClass
-            addClassToTree((Class)iterator.next());
+        if(temp.getInterfaces()[0].equals(AvionicsModule.class))
+        {
+        	addClassToTree(temp,avionics_modules);
+        }
+        else
+        	addClassToTree(temp,load_modules);
          } catch (Throwable e) {
             System.out.println("Error in creating class node");
          }
       }
       
       root.add(load_modules);
+      root.add(avionics_modules);
       root.add(add_modules);
       
       treeModel = new DefaultTreeModel(root);
@@ -340,7 +354,7 @@ public class ModuleManager {
                      Class newModuleClass = ModuleLoader.importModule(moduleProp);
                      
                      if (newModuleClass != null) {
-                        addClassToTree(newModuleClass);
+                        addClassToTree(newModuleClass,load_modules);//wangruijie
                         treeModel.reload();
                         moduleTree.expandPath(moduleTree.getPathForRow(1));
                      } else{
