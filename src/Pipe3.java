@@ -5,7 +5,8 @@ import pipe.gui.CreateGui;
 /**
  * <b>RunGui</b> - Start-up class with main function
  * @version 1.0
- * @author Alex Duncan //
+ * @author Alex Duncan 
+ * 总体的入口类
  */
 public class Pipe3 {
 
