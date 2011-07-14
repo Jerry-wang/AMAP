@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="E:/实验室/PIPE SRC/Pipe 3.0/Pipe 3.0/lib/drmaa.jar"/>
+	<classpathentry kind="lib" path="E:/实验室/PIPE SRC/Pipe 3.0/Pipe 3.0/lib/hadoop-0.13.1-dev-core.jar"/>
+	<classpathentry kind="lib" path="E:/实验室/PIPE SRC/Pipe 3.0/Pipe 3.0/lib/jcommon-1.0.10.jar"/>
+	<classpathentry kind="lib" path="E:/实验室/PIPE SRC/Pipe 3.0/Pipe 3.0/lib/jfreechart-1.0.6.jar"/>
+	<classpathentry kind="lib" path="E:/实验室/PIPE SRC/Pipe 3.0/Pipe 3.0/lib/jfreechart-1.0.6-swt.jar"/>
+	<classpathentry kind="lib" path="E:/实验室/PIPE SRC/Pipe 3.0/Pipe 3.0/lib/jpowergraph-0.2-common.jar"/>
+	<classpathentry kind="lib" path="E:/实验室/PIPE SRC/Pipe 3.0/Pipe 3.0/lib/jpowergraph-0.2-swing.jar"/>
+	<classpathentry kind="lib" path="E:/实验室/PIPE SRC/Pipe 3.0/Pipe 3.0/lib/powerswing-0.3.jar"/>
+	<classpathentry kind="lib" path="E:/实验室/PIPE SRC/Pipe 3.0/Pipe 3.0/lib/tools.jar"/>
+	<classpathentry kind="lib" path="E:/Java/libs/junit4.8.2/junit-4.8.2.jar"/>
+	<classpathentry kind="lib" path="E:/Java/libs/poi-3.0.2-FINAL.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
