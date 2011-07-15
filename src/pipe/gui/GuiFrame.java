@@ -3,6 +3,7 @@ package pipe.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -69,7 +70,11 @@ import pipe.common.dataLayer.Transition;
 import pipe.common.dataLayer.Unfolder;
 import pipe.gui.TokenClassPanel.TableModel;
 import pipe.gui.action.GuiAction;
+import pipe.gui.action.model.ModelGuideAction;
+import pipe.gui.action.model.ModelImportAction;
 import pipe.gui.undo.UndoableEdit;
+import pipe.gui.widgets.ButtonBar;
+import pipe.gui.widgets.EscapableDialog;
 import pipe.gui.widgets.FileBrowser;
 import pipe.io.JarUtilities;
 
@@ -125,7 +130,8 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 	private EditAction copyAction, cutAction, pasteAction, undoAction,
 			redoAction;
 	
-	private ModelAction guideAction;
+	private ModelGuideAction modelGuideAction;
+	private ModelImportAction modelImportAction;
 	
 	private GridAction toggleGrid;
 	private ZoomAction zoomOutAction, zoomInAction, zoomAction;
@@ -429,7 +435,10 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		
 		JMenu modelMenu = new JMenu("建模(M) ");
 		modelMenu.setMnemonic('M');
-		addMenuItem(modelMenu, guideAction = new ModelAction("建模向导","以向导的方式对航电系统进行Petri网建模", "G")); 
+	//	JMenuItem modelGuide = modelMenu.add("建模向导     ");
+		addMenuItem(modelMenu, modelGuideAction = new ModelGuideAction("建模向导     ","以向导的方式对航电系统进行Petri网建模", "G")); 
+		addMenuItem(modelMenu, modelImportAction = new ModelImportAction("模型导入并转换     ","导入UML模型，并转换为Petri网", "I")); 
+		
 		
 
 		JMenu viewMenu = new JMenu("查看(V) ");
@@ -472,11 +481,11 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 
 		JMenu helpMenu = new JMenu("帮助(H) ");
 		helpMenu.setMnemonic('H');
-		helpAction = new HelpBox("Help", "View documentation", "F1",
+		helpAction = new HelpBox("帮助", "查看帮助", "F1",
 				"index.htm");
 		addMenuItem(helpMenu, helpAction);
 
-		JMenuItem aboutItem = helpMenu.add("About PIPE");
+		JMenuItem aboutItem = helpMenu.add("关于本软件");
 		aboutItem.addActionListener(this); // Help - About is implemented
 		// differently
 
@@ -785,16 +794,11 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		JOptionPane
 				.showMessageDialog(
 						this,
-						"Imperial College DoC MSc Group And MSc Individual Project\n\n"
-								+ "Original version PIPE(c)\n2003 by Jamie Bloom, Clare Clark, Camilla Clifford, Alex Duncan, Haroun Khan and Manos Papantoniou\n\n"
-								+ "MLS(tm) Edition PIPE2(c)\n2004 by Tom Barnwell, Michael Camacho, Matthew Cook, Maxim Gready, Peter Kyme and Michail Tsouchlaris\n"
-								+ "2005 by Nadeem Akharware\n\n"
-								+ "PIPE 2.4 by Tim Kimber, Ben Kirby, Thomas Master, "
-								+ "Matthew Worthington\n\n"
-								+ "PIPE 2.5 by Pere Bonet Bonet (Universitat de les Illes Balears)\n\n"
-								+ "PIPE 2.6 by Marc Meli\u00E0 Aguil\u00F3 (Universitat de les Illes Balears)\n\n"
-								+ "http://pipe2.sourceforge.net/",
-						"About PIPE2", JOptionPane.INFORMATION_MESSAGE);
+						"AMAP: AFDX Model and Analysis based Petri Net Tool\n\n"
+								+ "本软件在开源软件PIPE(http://pipe2.sourceforge.net/)的基础上进行二次开发\n"
+								+ "主要针对航空电子系统，进行Petri网建模及仿真。\n\n",
+								 
+						"关于本软件", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	// HAK Method called by netModel object when it changes
@@ -1902,25 +1906,39 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			if (this == guideAction) {
-				System.out.println("guideAction");
-					/*ArrayList selection = appView.getSelectionObject()
-							.getSelection();
-					appGui.getCopyPasteManager().doCopy(selection, appView);
-					appView.getUndoManager().newEdit(); // new "transaction""
-					appView.getUndoManager().deleteSelection(selection);
-					appView.getSelectionObject().deleteSelection();
-					pasteAction.setEnabled(appGui.getCopyPasteManager()
-							.pasteEnabled());*/
-				} /*else if (this == copyAction) {
-					appGui.getCopyPasteManager().doCopy(
-							appView.getSelectionObject().getSelection(),
-							appView);
-					pasteAction.setEnabled(appGui.getCopyPasteManager()
-							.pasteEnabled());
-				}  */
+		//	if (this == guideAction) {
+ 				 // Build interface
+			      EscapableDialog guiDialog =
+			              new EscapableDialog(CreateGui.getApp(), "建模向导", true);
+
+			      // 1 Set layout
+			      Container contentPane = guiDialog.getContentPane();
+			      contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
+
+			      
+			      
+			      // 4 Add button
+			      contentPane.add(new ButtonBar("生成模型", classifyButtonClick,
+			              guiDialog.getRootPane()));
+
+			      // 5 Make window fit contents' preferred size
+			      guiDialog.pack();
+
+			      // 6 Move window to the middle of the screen
+			      guiDialog.setLocationRelativeTo(null);
+
+			      guiDialog.setVisible(true);
+				//}  
 			 
 		}
+		
+		ActionListener classifyButtonClick = new ActionListener() {
+
+		      public void actionPerformed(ActionEvent arg0) {
+		          System.out.println("here");
+		          
+		      }
+		   };
 	}
 
 	class ValidateAction extends GuiAction {
