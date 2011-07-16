@@ -34,9 +34,9 @@ public class TokenClassPanel extends JPanel {
 
 	public TokenClassPanel() {
 		// super(new GridLayout(1,0));
-		this.tokenClasses = CreateGui.getModel().getTokenClasses();
+ 		this.tokenClasses = CreateGui.getModel().getTokenClasses();
 		table = new JTable(new TableModel());
-		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		table.setPreferredScrollableViewportSize(new Dimension(500, 170));
 		table.setFillsViewportHeight(true);
 
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -53,9 +53,13 @@ public class TokenClassPanel extends JPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private String[] columnNames = { "Enabled", "Token Class Name",
+		/*private String[] columnNames = { "Enabled", "Token Class Name",
 				"Token Class Colour", };
-
+*/
+		
+		private String[] columnNames = { "应用", "名称",
+				"颜色", };
+		
 		private Object[][] data;
 		private static final int dataSize = 100;// Default is a size of 100 different
 		// tokenClasses as defined in
@@ -82,7 +86,7 @@ public class TokenClassPanel extends JPanel {
 					data[i][nameCol] = "";
 					data[i][colorCol] = Color.RED;
 					break;
-				case 2:
+				case 4:
 					data[i][enabledCol] = new Boolean(false);
 					data[i][nameCol] = "";
 					data[i][colorCol] = Color.BLUE;
@@ -92,7 +96,7 @@ public class TokenClassPanel extends JPanel {
 					data[i][nameCol] = "";
 					data[i][colorCol] = Color.YELLOW;
 					break;
-				case 4:
+				case 2:
 					data[i][enabledCol] = new Boolean(false);
 					data[i][nameCol] = "";
 					data[i][colorCol] = Color.GREEN;
@@ -155,7 +159,8 @@ public class TokenClassPanel extends JPanel {
 				if (((String) data[row][nameCol]).equals("")) {
 					shouldChange = false;
 					JOptionPane.showMessageDialog(new JPanel(),
-							"The token class name cannot be empty", "Warning",
+//							"The token class name cannot be empty", "Warning",
+							"名称不能为空", "Warning",
 							JOptionPane.WARNING_MESSAGE);
 
 				} else if ((Boolean) value) {
@@ -167,7 +172,8 @@ public class TokenClassPanel extends JPanel {
 								JOptionPane
 										.showMessageDialog(
 												new JPanel(),
-												"Another token class exists with that name",
+//												"Another token class exists with that name",
+												"名称重复！",
 												"Warning",
 												JOptionPane.WARNING_MESSAGE);
 								break;
@@ -187,7 +193,8 @@ public class TokenClassPanel extends JPanel {
 					if (!enabledRowFound) {
 						shouldChange = false;
 						JOptionPane.showMessageDialog(new JPanel(),
-								"At least one token class must be enabled",
+								"至少应该有1个分类被应用！",
+//								"At least one token class must be enabled",
 								"Warning", JOptionPane.WARNING_MESSAGE);
 					}
 				}
@@ -197,7 +204,8 @@ public class TokenClassPanel extends JPanel {
 					if (((String) value).equals("")) {
 						shouldChange = false;
 						JOptionPane.showMessageDialog(new JPanel(),
-								"The token class name cannot be empty", "Warning",
+								"名称不能为空！", "Warning",
+//								"The token class name cannot be empty", "Warning",
 								JOptionPane.WARNING_MESSAGE);
 
 					}
@@ -209,7 +217,8 @@ public class TokenClassPanel extends JPanel {
 								JOptionPane
 										.showMessageDialog(
 												new JPanel(),
-												"Another token class exists with that name",
+//												"Another token class exists with that name",
+												"名称重复！",
 												"Warning",
 												JOptionPane.WARNING_MESSAGE);
 								break;
@@ -250,7 +259,8 @@ public class TokenClassPanel extends JPanel {
 	}
 
 	private static void displayGUI() {
-		JFrame frame = new JFrame("Token Classes");
+//		JFrame frame = new JFrame("Token Classes");
+		JFrame frame = new JFrame("标记分类");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel tablePane = new TokenClassPanel();

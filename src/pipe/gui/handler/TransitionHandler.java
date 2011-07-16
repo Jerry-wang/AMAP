@@ -62,7 +62,8 @@ public class TransitionHandler
       int index = 0;
       JPopupMenu popup = super.getPopup(e);
       
-      JMenuItem menuItem = new JMenuItem("Edit Transition");      
+//      JMenuItem menuItem = new JMenuItem("Edit Transition");
+      JMenuItem menuItem = new JMenuItem("编辑变迁");
       menuItem.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent e) {
             ((Transition)myObject).showEditor();
@@ -72,14 +73,17 @@ public class TransitionHandler
       
       menuItem = new JMenuItem(new ShowHideInfoAction((Transition)myObject));
       if (((Transition)myObject).getAttributesVisible() == true){
-         menuItem.setText("Hide Attributes");
+//         menuItem.setText("Hide Attributes");
+         menuItem.setText("隐藏属性");
       } else {
-         menuItem.setText("Show Attributes");
+//    	  menuItem.setText("Show Attributes");
+    	  menuItem.setText("显示属性");
       }
       popup.insert(menuItem, index++);     
       
       popup.insert(new JPopupMenu.Separator(), index);
-      menuItem = new JMenuItem("Group Transitions");      
+//      menuItem = new JMenuItem("Group Transitions");   
+      menuItem = new JMenuItem("合并变迁 ");  
       menuItem.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent e) {
         	 UndoableEdit edit = ((Transition)myObject).groupTransitions();

@@ -47,7 +47,9 @@ public class AnnotationPanel extends javax.swing.JPanel {
       setMinimumSize(new java.awt.Dimension(239, 208));
       panel.setLayout(new java.awt.GridLayout(1, 0));
 
-      panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Edit Annotation"));
+      //panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Edit Annotation"));
+      panel.setBorder(javax.swing.BorderFactory.createTitledBorder("编辑注释"));
+
       textArea.setColumns(20);
       textArea.setRows(5);
       jScrollPane1.setViewportView(textArea);
@@ -61,7 +63,8 @@ public class AnnotationPanel extends javax.swing.JPanel {
 
       buttonPanel.setLayout(new java.awt.GridBagLayout());
 
-      okButton.setText("OK");
+      //okButton.setText("OK");
+      okButton.setText("确定");
       okButton.setMaximumSize(new java.awt.Dimension(75, 25));
       okButton.setMinimumSize(new java.awt.Dimension(75, 25));
       okButton.setPreferredSize(new java.awt.Dimension(75, 25));
@@ -78,7 +81,8 @@ public class AnnotationPanel extends javax.swing.JPanel {
       gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
       buttonPanel.add(okButton, gridBagConstraints);
 
-      cancelButton.setText("Cancel");
+//      cancelButton.setText("Cancel");
+      cancelButton.setText("取消");
       cancelButton.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             cancelButtonActionPerformed(evt);

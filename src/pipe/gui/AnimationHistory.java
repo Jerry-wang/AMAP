@@ -42,7 +42,8 @@ public class AnimationHistory
       doc = getDocument();
       doc.insertString(doc.getLength(),text,bold);
       fSeq = new Vector();
-      fSeq.add("Initial Marking");
+//      fSeq.add("Initial Marking");
+      fSeq.add("初始化");
       currentItem = 1;
       updateText();
    }

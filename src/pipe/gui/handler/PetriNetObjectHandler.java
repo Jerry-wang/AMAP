@@ -55,7 +55,8 @@ public class PetriNetObjectHandler
       JPopupMenu popup = new JPopupMenu();
       JMenuItem menuItem = 
               new JMenuItem(new DeletePetriNetObjectAction(myObject));
-      menuItem.setText("Delete");
+//      menuItem.setText("Delete");
+      menuItem.setText("删除");
       popup.add(menuItem);      
       return popup;
    }

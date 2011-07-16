@@ -83,7 +83,7 @@ public class CreateGui {
    
    
    public static DataLayer getModel() {
-      return getModel(appTab.getSelectedIndex());
+        return getModel(appTab.getSelectedIndex());
    }
    
    public static DataLayer getModel(int index) {
@@ -171,7 +171,9 @@ public class CreateGui {
    /** Creates a new animationHistory text area, and returns a reference to it*/
    public static void addAnimationHistory() {
        try {
-         animBox = new AnimationHistory("Animation history\n");
+//         animBox = new AnimationHistory("Animation history\n");
+         animBox = new AnimationHistory("仿真记录\n");
+
          animBox.setEditable(false);
          
          scroller = new JScrollPane(animBox);

@@ -91,7 +91,8 @@ Transition transition;
    private void timedTransition(){
       timedRadioButton.setSelected(true);
       
-      rateLabel.setText("Rate:");
+//      rateLabel.setText("Rate:");
+      rateLabel.setText("速率:");
       rateTextField.setText("" + transition.getRate());
       
       prioritySlider.setEnabled(false);
@@ -120,7 +121,8 @@ Transition transition;
    private void immediateTransition(){
       immediateRadioButton.setSelected(true); 
       
-      rateLabel.setText("Weight:");
+//      rateLabel.setText("Weight:");
+      rateLabel.setText("权重:");
       rateTextField.setText("" + transition.getRate());      
       
       prioritySlider.setEnabled(true);
@@ -178,10 +180,12 @@ Transition transition;
 
         setLayout(new java.awt.GridBagLayout());
 
-        transitionEditorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Transition Editor"));
+//        transitionEditorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Transition Editor"));
+        transitionEditorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("编辑变迁"));
         transitionEditorPanel.setLayout(new java.awt.GridBagLayout());
 
-        nameLabel.setText("Name:");
+//        nameLabel.setText("Name:");
+        nameLabel.setText("名称:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -214,7 +218,8 @@ Transition transition;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         transitionEditorPanel.add(rateLabel, gridBagConstraints);
 
-        priorityLabel.setText("Priority:");
+        priorityLabel.setText("优先级:");
+//        priorityLabel.setText("Priority:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -223,7 +228,8 @@ Transition transition;
         transitionEditorPanel.add(priorityLabel, gridBagConstraints);
 
         attributesCheckBox.setSelected(transition.getAttributesVisible());
-        attributesCheckBox.setText("Show transition attributes");
+//        attributesCheckBox.setText("Show transition attributes");
+        attributesCheckBox.setText("显示变迁属性");
         attributesCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         attributesCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -251,7 +257,8 @@ Transition transition;
         timingPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         timingButtonGroup.add(timedRadioButton);
-        timedRadioButton.setText("Timed");
+//        timedRadioButton.setText("Timed");
+        timedRadioButton.setText("随机变迁");
         timedRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         timedRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         timedRadioButton.setMaximumSize(new java.awt.Dimension(90, 15));
@@ -265,7 +272,8 @@ Transition transition;
         timingPanel.add(timedRadioButton);
 
         timingButtonGroup.add(immediateRadioButton);
-        immediateRadioButton.setText("Immediate");
+        //immediateRadioButton.setText("Immediate");
+        immediateRadioButton.setText("瞬时变迁");
         immediateRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         immediateRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         immediateRadioButton.setMaximumSize(new java.awt.Dimension(90, 15));
@@ -311,7 +319,8 @@ Transition transition;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         transitionEditorPanel.add(serverPanel, gridBagConstraints);
 
-        rotationLabel.setText("Rotation:");
+//        rotationLabel.setText("Rotation:");
+        rotationLabel.setText("角度:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -361,7 +370,8 @@ Transition transition;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         transitionEditorPanel.add(serverLabel, gridBagConstraints);
 
-        timingLabel.setText("Timing:");
+//        timingLabel.setText("Timing:");
+        timingLabel.setText("随机变迁:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -374,7 +384,7 @@ Transition transition;
         prioritySlider.setMinimum(1);
         prioritySlider.setMinorTickSpacing(1);
         prioritySlider.setSnapToTicks(true);
-        prioritySlider.setToolTipText("1: lowest priority; 127: highest priority");
+        prioritySlider.setToolTipText("1~127");
         prioritySlider.setValue(transition.getPriority());
         prioritySlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -406,6 +416,7 @@ Transition transition;
         buttonPanel.setLayout(new java.awt.GridBagLayout());
 
         cancelButton.setText("Cancel");
+        cancelButton.setText("取消");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonHandler(evt);
@@ -418,7 +429,8 @@ Transition transition;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         buttonPanel.add(cancelButton, gridBagConstraints);
 
-        okButton.setText("OK");
+//        okButton.setText("OK");
+        okButton.setText("确定");
         okButton.setMaximumSize(new java.awt.Dimension(75, 25));
         okButton.setMinimumSize(new java.awt.Dimension(75, 25));
         okButton.setPreferredSize(new java.awt.Dimension(75, 25));
@@ -546,9 +558,10 @@ Transition transition;
          if (pnmlData.checkTransitionIDAvailability(newName)){
             view.getUndoManager().addEdit(transition.setPNObjectName(newName));
          } else{
-            // aquest nom no est� disponible...
+            // aquest nom no est� disponible...
             JOptionPane.showMessageDialog(null,
-                    "There is already a transition named " + newName, "Error",
+//                    "There is already a transition named " + newName, "Error",
+            		"名称 "+newName+" 已存在","Error",
                                 JOptionPane.WARNING_MESSAGE);
             return;
          }

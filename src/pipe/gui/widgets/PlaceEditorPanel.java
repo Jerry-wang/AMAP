@@ -105,8 +105,8 @@ Place place;
 
       placeEditorPanel.setLayout(new java.awt.GridBagLayout());
 
-      placeEditorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Place Editor"));
-      nameLabel.setText("Name:");
+      placeEditorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("编辑库所"));
+      nameLabel.setText("名称:");
       gridBagConstraints = new java.awt.GridBagConstraints();
       gridBagConstraints.gridx = 0;
       gridBagConstraints.gridy = 0;
@@ -167,7 +167,7 @@ Place place;
 			}
 		}
 
-      capacityLabel.setText("Capacity:");
+      capacityLabel.setText("容量:");
       gridBagConstraints = new java.awt.GridBagConstraints();
       gridBagConstraints.gridx = 0;
       gridBagConstraints.gridy = y;
@@ -208,7 +208,8 @@ Place place;
       y++;
       
       attributesCheckBox.setSelected(place.getAttributesVisible());
-      attributesCheckBox.setText("Show place attributes");
+//      attributesCheckBox.setText("Show place attributes");
+      attributesCheckBox.setText("显示库所属性");
       attributesCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
       attributesCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
       gridBagConstraints = new java.awt.GridBagConstraints();
@@ -235,7 +236,7 @@ Place place;
       gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
       placeEditorPanel.add(markingComboBox, gridBagConstraints);*/
 
-      capacity0Label.setText("(no capacity restriction)    ");
+      capacity0Label.setText("(0代表容量无限制)");
       gridBagConstraints = new java.awt.GridBagConstraints();
       gridBagConstraints.gridx = 2;
       gridBagConstraints.gridy = capacityPos;
@@ -250,7 +251,7 @@ Place place;
 
       buttonPanel.setLayout(new java.awt.GridBagLayout());
 
-      okButton.setText("OK");
+      okButton.setText("确定");
       okButton.setMaximumSize(new java.awt.Dimension(75, 25));
       okButton.setMinimumSize(new java.awt.Dimension(75, 25));
       okButton.setPreferredSize(new java.awt.Dimension(75, 25));
@@ -273,7 +274,7 @@ Place place;
       gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 9);
       buttonPanel.add(okButton, gridBagConstraints);
 
-      cancelButton.setText("Cancel");
+      cancelButton.setText("取消");
       cancelButton.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             cancelButtonHandler(evt);
@@ -376,7 +377,8 @@ Place place;
 			try {
 				if (newMarking < 0) {
 					JOptionPane.showMessageDialog(null,
-							"Marking cannot be less than 0. Please re-enter");
+//							"Marking cannot be less than 0. Please re-enter");
+							"标记不能小于0，请重新输入");
 					return;
 				} else if (newMarking != currentMarking) {
 					m.setCurrentMarking(newMarking);
@@ -385,13 +387,15 @@ Place place;
 				}
 			} catch (NumberFormatException nfe) {
 				JOptionPane.showMessageDialog(null,
-						"Please enter a positive integer greater or equal to 0.",
+//						"Please enter a positive integer greater or equal to 0.",
+						"数字必须大于等于0",
 						"Invalid entry", JOptionPane.ERROR_MESSAGE);
 				return;
 			} catch (Exception exc) {
 				exc.printStackTrace();
 				JOptionPane.showMessageDialog(null,
-						"Please enter a positive integer greater or equal to 0.",
+//						"Please enter a positive integer greater or equal to 0.",
+						"数字必须大于等于0",
 						"Invalid entry", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
@@ -399,8 +403,9 @@ Place place;
       
       if ((newCapacity > 0) && (newCapacity < totalMarkings)){
 			JOptionPane.showMessageDialog(null,
-					"Marking exceeds capacity of place. Please alter capacity or markings");
-         return;
+//					"Marking exceeds capacity of place. Please alter capacity or markings");
+					"标记不能大于容量，请重新输入");	
+		return;
       }
 
 
@@ -410,9 +415,10 @@ Place place;
          if (pnmlData.checkPlaceIDAvailability(newName)){
             view.getUndoManager().addEdit(place.setPNObjectName(newName));
          } else{
-            // aquest nom no est� disponible...
+            // aquest nom no est� disponible...
             JOptionPane.showMessageDialog(null,
-                    "There is already a place named " + newName, "Error",
+//                    "There is already a place named " + newName, "Error",
+            		"名称 "+newName+" 已存在","Error",
                                 JOptionPane.WARNING_MESSAGE);
             return;
          }

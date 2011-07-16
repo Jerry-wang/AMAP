@@ -746,7 +746,7 @@ public class Transition extends PlaceTransitionObject {
 	public void showEditor() {
 		// Build interface
 		EscapableDialog guiDialog = new EscapableDialog(CreateGui.getApp(),
-				"PIPE2", true);
+				"AMAP", true);
 
 		TransitionEditorPanel te = new TransitionEditorPanel(guiDialog
 				.getRootPane(), this, CreateGui.getModel(), CreateGui.getView());

@@ -41,7 +41,7 @@ public class RateParameter
    public void enableEditMode(){
       // Build interface
       EscapableDialog guiDialog = 
-              new EscapableDialog(CreateGui.getApp(),"PIPE2",true);
+              new EscapableDialog(CreateGui.getApp(),"AMAP",true);
       guiDialog.add(new ParameterPanel(guiDialog.getRootPane(), this));
 
       // Make window fit contents' preferred size

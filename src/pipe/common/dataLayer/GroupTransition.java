@@ -622,7 +622,7 @@ public class GroupTransition extends PlaceTransitionObject {
 	public void showEditor() {
 		// Build interface
 		EscapableDialog guiDialog = new EscapableDialog(CreateGui.getApp(),
-				"PIPE2", true);
+				"AMAP", true);
 
 		GroupTransitionEditorPanel te = new GroupTransitionEditorPanel(guiDialog
 				.getRootPane(), this, CreateGui.getModel(), CreateGui.getView());

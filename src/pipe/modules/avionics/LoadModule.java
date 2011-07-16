@@ -32,11 +32,15 @@ import pipe.modules.EmptyNetException;
 import pipe.modules.Module;
 
 
-/** Classification class implements petri net classification */
-public class TestAvionicsModule
+/** Classification class implements petri net classification 
+ *  负载分析模块
+ * 
+ * 
+ */
+public class LoadModule
         implements AvionicsModule {  
 
-   private static final String MODULE_NAME = "建模向导";
+   private static final String MODULE_NAME = "负载分析";
    private PetriNetChooserPanel sourceFilePanel;
    private ResultsHTMLPane results;
 

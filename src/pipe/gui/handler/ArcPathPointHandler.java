@@ -44,14 +44,17 @@ public class ArcPathPointHandler
          JMenuItem menuItem = 
                  new JMenuItem(new ToggleArcPointAction((ArcPathPoint)myObject));
          if (((ArcPathPoint)myObject).getPointType() == ArcPathPoint.STRAIGHT) {
-            menuItem.setText("Change to Curved");
+//            menuItem.setText("Change to Curved");
+        	 menuItem.setText("曲线模式");
          } else{
-            menuItem.setText("Change to Straight");
+//            menuItem.setText("Change to Straight");
+        	 menuItem.setText("直线模式");
          }
          popup.insert(menuItem,0);
          
          menuItem = new JMenuItem(new SplitArcPointAction((ArcPathPoint)myObject));
-         menuItem.setText("Split Point");
+         menuItem.setText("插入分支点");
+//         menuItem.setText("Split Point");
          popup.add(menuItem,1);
          
          // The following commented out code can be used for

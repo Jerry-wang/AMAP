@@ -57,7 +57,7 @@ public class ModuleManager {
    private DefaultTreeModel treeModel;
    private DefaultMutableTreeNode load_modules, avionics_modules;
 //   private final String loadNodeString = "Find Module";
-   private final String loadNodeString = "自定义模块";
+   private final String loadNodeString = "导入自定义模块";
    Component parent;
 
    

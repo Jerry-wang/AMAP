@@ -57,7 +57,8 @@ public class GroupTransitionHandler
       int index = 0;
       JPopupMenu popup = super.getPopup(e);
       
-      JMenuItem menuItem = new JMenuItem("Edit Transition");      
+//      JMenuItem menuItem = new JMenuItem("Edit Transition");  
+      JMenuItem menuItem = new JMenuItem("编辑变迁");   
       menuItem.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent e) {
             ((GroupTransition)myObject).showEditor();
@@ -66,7 +67,8 @@ public class GroupTransitionHandler
       popup.insert(menuItem, index++);             
            
       popup.insert(new JPopupMenu.Separator(), index);
-      menuItem = new JMenuItem("Ungroup Transitions");      
+//      menuItem = new JMenuItem("Ungroup Transitions");  
+      menuItem = new JMenuItem("拆分变迁"); 
       menuItem.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent e) {
         	UndoableEdit edit = ((GroupTransition)myObject).ungroupTransitions();

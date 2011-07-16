@@ -155,7 +155,7 @@ private boolean fillNote = true;
 
       // Build interface
       EscapableDialog guiDialog =
-              new EscapableDialog(CreateGui.getApp(), "PIPE2", true);
+              new EscapableDialog(CreateGui.getApp(), "AMAP", true);
 
       guiDialog.add(new AnnotationPanel(this));
 

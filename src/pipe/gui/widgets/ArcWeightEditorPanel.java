@@ -74,13 +74,14 @@ public class ArcWeightEditorPanel extends javax.swing.JPanel {
 		setLayout(new java.awt.GridBagLayout());
 
 		arcEditorPanel.setBorder(javax.swing.BorderFactory
-				.createTitledBorder("Arc Weight Editor"));
+//				.createTitledBorder("Arc Weight Editor"));
+				.createTitledBorder("编辑权值"));
 		arcEditorPanel.setLayout(new java.awt.GridBagLayout());
-		Dimension d = new Dimension();
-		d.setSize(150, 350);
-		arcEditorPanel.setPreferredSize(d);
+		/*Dimension d = new Dimension();
+		d.setSize(150, 350);*///此处自适应高度比较好
+		//arcEditorPanel.setPreferredSize(d);
 		// Now set new dimension used in for loop below
-		d = new Dimension();
+		Dimension d = new Dimension();
 		d.setSize(50, 19);
 		int x = 0;
 		int y = 0;
@@ -134,7 +135,7 @@ public class ArcWeightEditorPanel extends javax.swing.JPanel {
 		add(arcEditorPanel, gridBagConstraints);
 		buttonPanel.setLayout(new java.awt.GridBagLayout());
 
-		cancelButton.setText("Cancel");
+		cancelButton.setText("取消");
 		cancelButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				cancelButtonHandler(evt);
@@ -147,7 +148,7 @@ public class ArcWeightEditorPanel extends javax.swing.JPanel {
 		gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
 		buttonPanel.add(cancelButton, gridBagConstraints);
 
-		okButton.setText("OK");
+		okButton.setText("确定");
 		okButton.setMaximumSize(new java.awt.Dimension(75, 25));
 		okButton.setMinimumSize(new java.awt.Dimension(75, 25));
 		okButton.setPreferredSize(new java.awt.Dimension(75, 25));
@@ -225,7 +226,8 @@ public class ArcWeightEditorPanel extends javax.swing.JPanel {
 						.getValue());
 				if (newMarking < 0) {
 					JOptionPane.showMessageDialog(null,
-							"Weighting cannot be less than 0. Please re-enter");
+//							"Weighting cannot be less than 0. Please re-enter");
+							"权值不能小于0，请重新输入");
 					return;
 				} else if (newMarking != currentMarking) {
 					m.setCurrentMarking(newMarking);
@@ -246,7 +248,8 @@ public class ArcWeightEditorPanel extends javax.swing.JPanel {
 */		}
 		if(totalMarking <= 0){
 			JOptionPane.showMessageDialog(null,
-					"Total weight of arc must be greater than 0. Please re-enter");
+//					"Total weight of arc must be greater than 0. Please re-enter");
+					"总权值不能小于0，请重新输入");
 			return;
 		}
 		CreateGui.getView().getUndoManager().addEdit(
@@ -262,7 +265,7 @@ public class ArcWeightEditorPanel extends javax.swing.JPanel {
 	 * "";//nameTextField.getText(); if (!newName.equals(name)) { if
 	 * (pnmlData.checkTransitionIDAvailability(newName)) {
 	 * view.getUndoManager().addEdit(arc.setPNObjectName(newName)); } else { //
-	 * aquest nom no est� disponible... JOptionPane.showMessageDialog(null,
+	 * aquest nom no est� disponible... JOptionPane.showMessageDialog(null,
 	 * "There is already a transition named " + newName, "Error",
 	 * JOptionPane.WARNING_MESSAGE); return; } }
 	 */

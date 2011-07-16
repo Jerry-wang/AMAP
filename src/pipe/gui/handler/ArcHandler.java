@@ -49,7 +49,8 @@ public class ArcHandler
       
  
       if (myObject instanceof InhibitorArc) {
-          menuItem = new JMenuItem("Edit Weight");      
+          menuItem = new JMenuItem("编辑权重");  
+//          menuItem = new JMenuItem("Edit Weight");  
           menuItem.addActionListener(new ActionListener(){
              public void actionPerformed(ActionEvent e) {
                 ((Arc)myObject).showEditor();
@@ -59,7 +60,8 @@ public class ArcHandler
 
          menuItem = new JMenuItem(new SplitArcAction((Arc)myObject, 
                                                       e.getPoint()));
-         menuItem.setText("Split Arc Segment");
+//         menuItem.setText("Split Arc Segment");
+         menuItem.setText("插入分节点");
          popup.insert(menuItem, popupIndex++);
 
          popup.insert(new JPopupMenu.Separator(), popupIndex++);         
@@ -77,7 +79,8 @@ public class ArcHandler
             }
 
 //            if (!PTArc.isTagged()) { //pendentnou
-            menuItem = new JMenuItem("Edit Weight");      
+//            menuItem = new JMenuItem("Edit Weight");   
+            menuItem = new JMenuItem("编辑权重");  
             menuItem.addActionListener(new ActionListener(){
                public void actionPerformed(ActionEvent e) {
                   ((Arc)myObject).showEditor();
@@ -112,7 +115,8 @@ public class ArcHandler
             
             menuItem = new JMenuItem(new InsertPointAction((Arc)myObject, 
                                                          e.getPoint()));            
-            menuItem.setText("Insert Point");
+//            menuItem.setText("Insert Point");
+            menuItem.setText("插入分节点");
             /*                        
             menuItem = new JMenuItem(new SplitArcAction((Arc)myObject, 
                                                          e.getPoint()));
@@ -122,17 +126,20 @@ public class ArcHandler
             
             menuItem = new JMenuItem(
                     new SplitArcsAction((NormalArc)myObject, true));
-            menuItem.setText("Split Arcs (PT / TP)");
+//            menuItem.setText("Split Arcs (PT / TP)");
+            menuItem.setText("分离弧 (PT / TP)");
             popup.insert(menuItem, popupIndex++);            
 
             popup.insert(new JPopupMenu.Separator(), popupIndex++);   
             
             menuItem = new JMenuItem(new DeleteInverseArcAction(PTArc));
-            menuItem.setText("Delete (PT Arc)");
+//            menuItem.setText("Delete (PT Arc)");
+            menuItem.setText("删除 (PT Arc)");
             popup.insert(menuItem, popupIndex++);  
             
             menuItem = new JMenuItem(new DeleteInverseArcAction(TPArc));
-            menuItem.setText("Delete (TP Arc)");
+//            menuItem.setText("Delete (TP Arc)");
+            menuItem.setText("删除 (TP Arc)");
             popup.insert(menuItem, popupIndex++);
             /*
             menuItem = new JMenuItem(new DeleteBothAction((NormalArc)myObject));
@@ -141,7 +148,8 @@ public class ArcHandler
             */
          } else {
 //            if(!((NormalArc)myObject).isTagged()) {
-             menuItem = new JMenuItem("Edit Weight");      
+//             menuItem = new JMenuItem("Edit Weight");    
+        	 menuItem = new JMenuItem("编辑权重");  
              menuItem.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
                    ((Arc)myObject).showEditor();
@@ -166,14 +174,16 @@ public class ArcHandler
             
             menuItem = new JMenuItem(new SplitArcAction((Arc)myObject, 
                                                          e.getPoint()));            
-            menuItem.setText("Insert Point");
+//            menuItem.setText("Insert Point");
+            menuItem.setText("插入分节点");
             popup.insert(menuItem, popupIndex++);
 
             if (((NormalArc)myObject).hasInverse()){
                menuItem = new JMenuItem(
                         new SplitArcsAction((NormalArc)myObject, false));
                
-               menuItem.setText("Join Arcs (PT / TP)");
+//               menuItem.setText("Join Arcs (PT / TP)");
+               menuItem.setText("合并弧 (PT / TP)");
                popup.insert(menuItem, popupIndex++);            
             }
             popup.insert(new JPopupMenu.Separator(), popupIndex);

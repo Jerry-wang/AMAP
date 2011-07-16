@@ -37,7 +37,8 @@ public class PlaceHandler extends PlaceTransitionObjectHandler {
 		int index = 0;
 		JPopupMenu popup = super.getPopup(e);
 
-		JMenuItem menuItem = new JMenuItem("Edit Place");
+//		JMenuItem menuItem = new JMenuItem("Edit Place");
+		JMenuItem menuItem = new JMenuItem("编辑库所");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((Place) myObject).showEditor();
@@ -47,9 +48,11 @@ public class PlaceHandler extends PlaceTransitionObjectHandler {
 
 		menuItem = new JMenuItem(new ShowHideInfoAction((Place) myObject));
 		if (((Place) myObject).getAttributesVisible() == true) {
-			menuItem.setText("Hide Attributes");
+//			menuItem.setText("Hide Attributes");
+			menuItem.setText("隐藏属性");
 		} else {
-			menuItem.setText("Show Attributes");
+			menuItem.setText("显示属性");
+//			menuItem.setText("Show Attributes");
 		}
 		popup.insert(menuItem, index++);
 		popup.insert(new JPopupMenu.Separator(), index);

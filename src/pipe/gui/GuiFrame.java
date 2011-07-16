@@ -214,35 +214,35 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		JMenu fileMenu = new JMenu("文件(F) ");
 		fileMenu.setMnemonic('F');
 
-		addMenuItem(fileMenu, createAction = new FileAction("New",
-				"Create a new Petri net", "ctrl N"));
-		addMenuItem(fileMenu, openAction = new FileAction("Open", "Open",
+		addMenuItem(fileMenu, createAction = new FileAction("新建",
+				"新建一个Petri网模型", "ctrl N"));
+		addMenuItem(fileMenu, openAction = new FileAction("打开...", "打开已有的Petri网模型",
 				"ctrl O"));
-		addMenuItem(fileMenu, closeAction = new FileAction("Close",
-				"Close the current tab", "ctrl W"));
+		addMenuItem(fileMenu, closeAction = new FileAction("关闭",
+				"关闭当前页", "ctrl W"));
 		fileMenu.addSeparator();
-		addMenuItem(fileMenu, saveAction = new FileAction("Save", "Save",
+		addMenuItem(fileMenu, saveAction = new FileAction("保存", "保存模型",
 				"ctrl S"));
-		addMenuItem(fileMenu, saveAsAction = new FileAction("Save as",
-				"Save as...", "shift ctrl S"));
+		addMenuItem(fileMenu, saveAsAction = new FileAction("另存为...",
+				"模型另存为...", "shift ctrl S"));
 
 		fileMenu.addSeparator();
-		addMenuItem(fileMenu, importAction = new FileAction("Import",
-				"Import from eDSPN", "ctrl I"));
+		addMenuItem(fileMenu, importAction = new FileAction("导入...",
+				"导入已有模型", "ctrl I"));
 		// Export menu
-		JMenu exportMenu = new JMenu("Export");
+		JMenu exportMenu = new JMenu("导出");
 		exportMenu.setIcon(new ImageIcon(Thread.currentThread()
 				.getContextClassLoader().getResource(
 						CreateGui.imgPath + "Export.png")));
 		addMenuItem(exportMenu, exportPNGAction = new FileAction("PNG",
-				"Export the net to PNG format", "ctrl G"));
-		addMenuItem(exportMenu, exportPSAction = new FileAction("PostScript",
-				"Export the net to PostScript format", "ctrl T"));
+				"将模型导出为PNG格式", "ctrl G"));
+		/*addMenuItem(exportMenu, exportPSAction = new FileAction("PostScript",
+				"Export the net to PostScript format", "ctrl T"));*/
 		addMenuItem(exportMenu, exportTNAction = new FileAction("eDSPN",
-				"Export the net to Timenet format", "ctrl E"));
+				"将模型导出为Timenet格式(eDSPN)", "ctrl E"));
 		fileMenu.add(exportMenu);
 		fileMenu.addSeparator();
-		addMenuItem(fileMenu, printAction = new FileAction("Print", "Print",
+		addMenuItem(fileMenu, printAction = new FileAction("打印", "打印",
 				"ctrl P"));
 		fileMenu.addSeparator();
 
@@ -343,29 +343,29 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 			System.err.println("Error getting example files:" + e);
 			e.printStackTrace();
 		}
-		addMenuItem(fileMenu, exitAction = new FileAction("Exit",
-				"Close the program", "ctrl Q"));
+		addMenuItem(fileMenu, exitAction = new FileAction("退出",
+				"退出软件", "ctrl Q"));
 
 		JMenu editMenu = new JMenu("编辑(E) ");
 		editMenu.setMnemonic('E');
-		addMenuItem(editMenu, undoAction = new EditAction("Undo",
-				"Undo (Ctrl-Z)", "ctrl Z"));
-		addMenuItem(editMenu, redoAction = new EditAction("Redo",
-				"Redo (Ctrl-Y)", "ctrl Y"));
+		addMenuItem(editMenu, undoAction = new EditAction("撤销",
+				"撤销 (Ctrl-Z)", "ctrl Z"));
+		addMenuItem(editMenu, redoAction = new EditAction("恢复",
+				"恢复 (Ctrl-Y)", "ctrl Y"));
 		editMenu.addSeparator();
-		addMenuItem(editMenu, cutAction = new EditAction("Cut", "Cut (Ctrl-X)",
+		addMenuItem(editMenu, cutAction = new EditAction("剪切", "剪切 (Ctrl-X)",
 				"ctrl X"));
-		addMenuItem(editMenu, copyAction = new EditAction("Copy",
-				"Copy (Ctrl-C)", "ctrl C"));
-		addMenuItem(editMenu, pasteAction = new EditAction("Paste",
-				"Paste (Ctrl-V)", "ctrl V"));
-		addMenuItem(editMenu, deleteAction = new DeleteAction("Delete",
-				"Delete selection", "DELETE"));
+		addMenuItem(editMenu, copyAction = new EditAction("复制",
+				"复制 (Ctrl-C)", "ctrl C"));
+		addMenuItem(editMenu, pasteAction = new EditAction("粘贴",
+				"粘贴 (Ctrl-V)", "ctrl V"));
+		addMenuItem(editMenu, deleteAction = new DeleteAction("删除",
+				"删除所选", "DELETE"));
 
 		JMenu drawMenu = new JMenu("绘制(D) ");
 		drawMenu.setMnemonic('D');
-		addMenuItem(drawMenu, selectAction = new TypeAction("Select",
-				Constants.SELECT, "Select components", "S", true));
+		addMenuItem(drawMenu, selectAction = new TypeAction("选择",
+				Constants.SELECT, "选择", "S", true));
 		// [traduir] Alternativa per el mode select
 		// this.get
 		// System.out.println(""+ selectAction.getKeys()..toString());
@@ -401,28 +401,28 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		rootPane.getActionMap().put("ESCAPE", selectAction);
 
 		drawMenu.addSeparator();
-		addMenuItem(drawMenu, placeAction = new TypeAction("Place",
-				Constants.PLACE, "Add a place", "P", true));
+		addMenuItem(drawMenu, placeAction = new TypeAction("库所",
+				Constants.PLACE, "添加库所", "P", true));
 		addMenuItem(drawMenu, transAction = new TypeAction(
-				"Immediate transition", Constants.IMMTRANS,
-				"Add an immediate transition", "I", true));
+				"瞬时变迁", Constants.IMMTRANS,
+				"添加一个瞬时变迁", "I", true));
 		addMenuItem(drawMenu, timedtransAction = new TypeAction(
-				"Timed transition", Constants.TIMEDTRANS,
-				"Add a timed transition", "T", true));
-		addMenuItem(drawMenu, arcAction = new TypeAction("Arc", Constants.ARC,
-				"Add an arc", "A", true));
-		addMenuItem(drawMenu, inhibarcAction = new TypeAction("Inhibitor Arc",
-				Constants.INHIBARC, "Add an inhibitor arc", "H", true));
-		addMenuItem(drawMenu, annotationAction = new TypeAction("Annotation",
-				Constants.ANNOTATION, "Add an annotation", "N", true));
+				"随机变迁", Constants.TIMEDTRANS,
+				"添加一个随机变迁", "T", true));
+		addMenuItem(drawMenu, arcAction = new TypeAction("弧", Constants.ARC,
+				"添加一条弧", "A", true));
+		addMenuItem(drawMenu, inhibarcAction = new TypeAction("抑制弧",
+				Constants.INHIBARC, "添加一条抑制弧", "H", true));
+		addMenuItem(drawMenu, annotationAction = new TypeAction("注释",
+				Constants.ANNOTATION, "添加注释", "N", true));
 		drawMenu.addSeparator();
-		addMenuItem(drawMenu, tokenAction = new TypeAction("Add token",
-				Constants.ADDTOKEN, "Add a token", "ADD", true));
+		addMenuItem(drawMenu, tokenAction = new TypeAction("添加标记",
+				Constants.ADDTOKEN, "添加标记", "ADD", true));
 		addMenuItem(drawMenu, deleteTokenAction = new TypeAction(
-				"Delete token", Constants.DELTOKEN, "Delete a token",
+				"删除标记", Constants.DELTOKEN, "删除标记",
 				"SUBTRACT", true));
 		addMenuItem(drawMenu, specifyTokenClasses = new TokenClassAction(
-				"SpecifyTokenClasses", "Specify token classes", "shift ctrl T"));
+				"标记分类", "标记分类", "shift ctrl T"));
 		addMenuItem(drawMenu, groupTransitions = new GroupTransitionsAction(
 				"groupTransitions", "Group any possible transitions", "shift ctrl G"));
 		addMenuItem(drawMenu, ungroupTransitions = new UngroupTransitionsAction(
@@ -444,40 +444,40 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		JMenu viewMenu = new JMenu("查看(V) ");
 		viewMenu.setMnemonic('V');
 
-		JMenu zoomMenu = new JMenu("Zoom");
+		JMenu zoomMenu = new JMenu("调整大小");
 		zoomMenu.setIcon(new ImageIcon(Thread.currentThread()
 				.getContextClassLoader().getResource(
 						CreateGui.imgPath + "Zoom.png")));
 		addZoomMenuItems(zoomMenu);
 
-		addMenuItem(viewMenu, zoomOutAction = new ZoomAction("Zoom out",
-				"Zoom out by 10% ", "ctrl MINUS"));
+		addMenuItem(viewMenu, zoomOutAction = new ZoomAction("缩小",
+				"缩小10% ", "ctrl MINUS"));
 
-		addMenuItem(viewMenu, zoomInAction = new ZoomAction("Zoom in",
-				"Zoom in by 10% ", "ctrl PLUS"));
+		addMenuItem(viewMenu, zoomInAction = new ZoomAction("放大",
+				"放大10% ", "ctrl PLUS"));
 		viewMenu.add(zoomMenu);
 
 		viewMenu.addSeparator();
-		addMenuItem(viewMenu, toggleGrid = new GridAction("Cycle grid",
-				"Change the grid size", "G"));
-		addMenuItem(viewMenu, dragAction = new TypeAction("Drag",
-				Constants.DRAG, "Drag the drawing", "D", true));
+		addMenuItem(viewMenu, toggleGrid = new GridAction("调整网格",
+				"调整网格大小", "G"));
+		/*addMenuItem(viewMenu, dragAction = new TypeAction("Drag",
+				Constants.DRAG, "Drag the drawing", "D", true));*/
 
 		JMenu animateMenu = new JMenu("仿真(S) "); 
 		animateMenu.setMnemonic('S');
 		addMenuItem(animateMenu, startAction = new AnimateAction(
-				"Animation mode", Constants.START, "Toggle Animation Mode",
+				"手动仿真模式", Constants.START, "手动仿真",
 				"Ctrl A", true));
 		animateMenu.addSeparator();
-		addMenuItem(animateMenu, stepbackwardAction = new AnimateAction("Back",
-				Constants.STEPBACKWARD, "Step backward a firing", "4"));
+		addMenuItem(animateMenu, stepbackwardAction = new AnimateAction("后退一步",
+				Constants.STEPBACKWARD, "后退一步", "4"));
 		addMenuItem(animateMenu, stepforwardAction = new AnimateAction(
-				"Forward", Constants.STEPFORWARD, "Step forward a firing", "6"));
-		addMenuItem(animateMenu, randomAction = new AnimateAction("Random",
-				Constants.RANDOM, "Randomly fire a transition", "5"));
+				"前进一步", Constants.STEPFORWARD, "前进一步", "6"));
+		addMenuItem(animateMenu, randomAction = new AnimateAction("随机触发",
+				Constants.RANDOM, "随机触发一个变迁", "5"));
 		addMenuItem(animateMenu, randomAnimateAction = new AnimateAction(
-				"Animate", Constants.ANIMATE,
-				"Randomly fire a number of transitions", "7", true));
+				"批量触发", Constants.ANIMATE,
+				"随机触发一定数量的变迁", "7", true));
 
 		JMenu helpMenu = new JMenu("帮助(H) ");
 		helpMenu.setMnemonic('H');
@@ -533,7 +533,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		addButton(toolBar, zoomInAction);
 		toolBar.addSeparator();
 		addButton(toolBar, toggleGrid);
-		addButton(toolBar, dragAction);
+		//addButton(toolBar, dragAction);
 		addButton(toolBar, startAction);
 
 		drawingToolBar = new JToolBar();
@@ -553,7 +553,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		addButton(drawingToolBar, deleteTokenAction);
 		addTokenClassComboBox(drawingToolBar,
 				chooseTokenClassAction = new ChooseTokenClassAction(
-						"chooseTokenClass", "Select current token class", null));
+						"chooseTokenClass", "选择标记分类", null));
 		addButton(drawingToolBar, specifyTokenClasses);
 		addButton(drawingToolBar, groupTransitions);
 		addButton(drawingToolBar, ungroupTransitions);
@@ -636,7 +636,8 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		LinkedList<TokenClass> tokenClasses;
 		if (appModel == null) {
 			tokenClasses = new LinkedList<TokenClass>();
-			TokenClass tc = new TokenClass(true, "Default", Color.black);
+			TokenClass tc = new TokenClass(true, "默认(黑)", Color.black);
+//			TokenClass tc = new TokenClass(true, "Default", Color.black);
 			tokenClasses.add(tc);
 		} else {
 			tokenClasses = CreateGui.getModel().getTokenClasses();
@@ -885,7 +886,8 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		// observer
 
 		if (file == null) {
-			name = "New Petri net " + (newNameCounter++) + ".xml";
+//			name = "New Petri net " + (newNameCounter++) + ".xml";
+			name = "模型 " + (newNameCounter++) + ".xml";
 		} else {
 			try {
 				// BK 10/02/07: Changed loading of PNML to accomodate new
@@ -971,8 +973,11 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 
 		if (appView.getNetChanged()) {
 			int result = JOptionPane.showConfirmDialog(GuiFrame.this,
-					"Current file has changed. Save current file?",
-					"Confirm Save Current File",
+//					"Current file has changed. Save current file?",
+//					"Confirm Save Current File",
+					
+					"是否将更改保存?",
+					"AMAP",
 					JOptionPane.YES_NO_CANCEL_OPTION,
 					JOptionPane.WARNING_MESSAGE);
 			switch (result) {
@@ -1333,9 +1338,9 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 			if (this != annotationAction) {
 				annotationAction.setSelected(false);
 			}
-			if (this != dragAction) {
+			/*if (this != dragAction) {
 				dragAction.setSelected(false);
-			}
+			}*/
 
 			if (appView == null) {
 				return;
@@ -1625,7 +1630,8 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 
 		public void actionPerformed(ActionEvent e) {
 			guiDialog = new TokenClassDialog(CreateGui.getApp(),
-					"Token Classes", true);
+					//"Token Classes", true);
+					"标记分类", true);
 			guiDialog.setSize(600, 300);
 			guiDialog.setLocationRelativeTo(null);
 			dialogContent = new TokenClassPanel();
@@ -1639,11 +1645,13 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 			buttonPane
 					.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 			buttonPane.add(Box.createHorizontalGlue());
-			JButton ok = new JButton("OK");
+//			JButton ok = new JButton("OK");
+			JButton ok = new JButton("确定");
 			ok.addActionListener((ActionListener) guiDialog);
 			buttonPane.add(ok);
 			buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
-			JButton cancel = new JButton("Cancel");
+//			JButton cancel = new JButton("Cancel");
+			JButton cancel = new JButton("取消");
 			cancel.addActionListener((ActionListener) guiDialog);
 			buttonPane.add(cancel);
 
@@ -1744,9 +1752,9 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 						.getViewPosition().y
 						+ (thisView.getHeight() * 0.5), zoomer.getPercent());
 
-				if (actionName.equals("Zoom in")) {
+				if (actionName.equals("放大")) {
 					doZoom = zoomer.zoomIn();
-				} else if (actionName.equals("Zoom out")) {
+				} else if (actionName.equals("缩小")) {
 					doZoom = zoomer.zoomOut();
 				} else {
 					if (actionName.equals("Zoom")) {

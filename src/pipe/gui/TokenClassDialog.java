@@ -24,10 +24,10 @@ public class TokenClassDialog extends JDialog implements ActionListener{
 		super(owner, title, modal);
 	}
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("OK")){
+		if(e.getActionCommand().equals("确定")){
 			acceptChanges = true;
 		}
-		else if(e.getActionCommand().equals("Cancel")){
+		else if(e.getActionCommand().equals("取消")){
 			acceptChanges = false;
 		}
 		setVisible(false);

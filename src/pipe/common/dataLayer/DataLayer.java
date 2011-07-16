@@ -300,7 +300,10 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 	public LinkedList<TokenClass> getTokenClasses() {
 		if (tokenClasses == null) {
 			tokenClasses = new LinkedList<TokenClass>();
-			tokenClasses.add(new TokenClass(true, "Default", Color.black));
+			tokenClasses.add(new TokenClass(true, "黑(默认)", Color.black));
+			tokenClasses.add(new TokenClass(true, "红", Color.red));
+			tokenClasses.add(new TokenClass(true, "绿", Color.green));
+//			tokenClasses.add(new TokenClass(true, "Default", Color.black));
 			this.setActiveTokenClass(tokenClasses.get(0));
 		}
 		return tokenClasses;

@@ -476,7 +476,7 @@ public abstract class Arc extends PetriNetObject implements Cloneable {
 	public void showEditor() {
 		// Build interface
 		EscapableDialog guiDialog = new EscapableDialog(CreateGui.getApp(),
-				"PIPE2", true);
+				"AMAP", true);
 
 		ArcWeightEditorPanel arcWeightEditor = new ArcWeightEditorPanel(
 				guiDialog.getRootPane(), this, CreateGui.getModel(), CreateGui
