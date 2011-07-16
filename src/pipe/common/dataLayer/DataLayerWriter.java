@@ -303,9 +303,11 @@ public class DataLayerWriter {
          String nameInput = inputTransition.getName();
          double aRate = inputTransition.getRate();
          boolean timedTrans = inputTransition.isTimed();
-         boolean infiniteServer = inputTransition.isInfiniteServer();
+         boolean deterministicTrans = inputTransition.isDeterministic();
+         boolean infiniteServer = inputTransition.isInfiniteServer(); 
          int orientation = inputTransition.getAngle();
          int priority = inputTransition.getPriority();
+         double delay = inputTransition.getDelay();
          String rateParameter = "";
          if (inputTransition.getRateParameter() != null) {
             rateParameter = inputTransition.getRateParameter().getName();
@@ -326,10 +328,12 @@ public class DataLayerWriter {
          transitionElement.setAttribute("rate",
                  (aRate != 1 ? String.valueOf(aRate) : "1.0"));
          transitionElement.setAttribute("timed", String.valueOf(timedTrans));
+         transitionElement.setAttribute("deterministic", String.valueOf(deterministicTrans));
          transitionElement.setAttribute("infiniteServer",
                  String.valueOf(infiniteServer));
          transitionElement.setAttribute("angle", String.valueOf(orientation));
          transitionElement.setAttribute("priority", String.valueOf(priority));
+         transitionElement.setAttribute("delay", String.valueOf(delay));
          transitionElement.setAttribute("parameter",
                  (rateParameter != null ? rateParameter : ""));
       }

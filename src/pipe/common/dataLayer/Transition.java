@@ -82,7 +82,7 @@ public class Transition extends PlaceTransitionObject {
 	public static final int TRANSITION_WIDTH = TRANSITION_HEIGHT / 3;
 	
 	/** Place Width */
-	public static  int TRANSITION_WIDTH_NARROW = TRANSITION_HEIGHT / 5;
+	public static final  int TRANSITION_WIDTH_NARROW = TRANSITION_HEIGHT / 5;
 
 	private int angle;
 	private boolean enabled = false;
@@ -163,7 +163,7 @@ public class Transition extends PlaceTransitionObject {
 			boolean infServer, int angleInput, int priority) {
 		super(positionXInput, positionYInput, idInput, nameInput,
 				nameOffsetXInput, nameOffsetYInput);
-		System.out.println("构造方法");
+		System.out.println("构造方法");//构造方法   在打开文件的时候就用到了
 
  		componentWidth = TRANSITION_HEIGHT; // sets width  这个是外面边框的宽度
 		componentHeight = TRANSITION_HEIGHT;// sets height
@@ -171,7 +171,7 @@ public class Transition extends PlaceTransitionObject {
 		timed = timedTransition;
 		deterministic = deterministicTransition; System.out.println(deterministicTransition);
 		infiniteServer = infServer;
-		constructTransition(!timedTransition);
+		constructTransition(!deterministic&&!timed);
 		angle = 0;
 		setCentre((int) positionX, (int) positionY);
 		rotate(angleInput);
@@ -592,10 +592,11 @@ public class Transition extends PlaceTransitionObject {
 	}
 
 	private void constructTransition(boolean isNarrow) {
-		System.out.println("constructTransition");
+		System.out.println("constructTransition:isNarrow"+isNarrow);
 
 		transition = new GeneralPath();
 		 System.out.println(componentWidth);
+		 
 		if(isNarrow){
 			transition.append(new Rectangle2D.Double(
 					(componentWidth - TRANSITION_WIDTH_NARROW) / 2, 0, TRANSITION_WIDTH_NARROW,

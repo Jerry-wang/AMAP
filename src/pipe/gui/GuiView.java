@@ -224,7 +224,7 @@ public class GuiView
     * TODO: write a better description than this since it is now totally 
     * not happening.
     */
-   public void paintComponent(Graphics g) {
+   public void paintComponent(Graphics g) {  
       super.paintComponent(g);
       if (Grid.isEnabled()) {
          Grid.updateSize(this);
@@ -492,7 +492,9 @@ public class GuiView
       
       private PlaceTransitionObject newTransition(Point p, boolean timed,  boolean deterministic){
      	  p = adjustPoint(p, view.getZoom());
-    	  boolean isNarrow = !timed&&!deterministic;
+    	  boolean isNarrow = !deterministic&&!timed;
+    	  System.out.println("~~~~~~~"+isNarrow);
+    	  
          
          pnObject = TransitionFactory.createTransition(Grid.getModifiedX(p.x), Grid.getModifiedY(p.y), isNarrow);
           ((Transition)pnObject).setTimed(timed);

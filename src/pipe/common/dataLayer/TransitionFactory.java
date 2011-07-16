@@ -14,7 +14,8 @@ public class TransitionFactory {
 
 	public static Transition createTransition(double positionXInput,
 			double positionYInput, boolean isNarrow) {
-		return new Transition(positionXInput, positionYInput, isNarrow);
+ 		return new Transition(positionXInput, positionYInput, isNarrow);
 	}
 
 }
+  

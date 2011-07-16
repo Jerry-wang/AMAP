@@ -87,7 +87,7 @@ public class Unfolder {
 			String transIdInput = transitions[i].getId();
 			double transNameOffsetXInput = transitions[i].nameOffsetX;
 			double transNameOffsetYInput = transitions[i].nameOffsetY;
-			double rateInput = transitions[i].getRate();
+			double rateInput = transitions[i].getRate();  
 			boolean timedTransition = transitions[i].isTimed();
 			boolean deterministicTransition = transitions[i].isDeterministic();
 			boolean infServer = transitions[i].isInfiniteServer();

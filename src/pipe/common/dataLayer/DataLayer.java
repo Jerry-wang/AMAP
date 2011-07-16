@@ -1221,12 +1221,13 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 		double nameOffsetYInput = 0;
 		double nameOffsetXInput = 0;
 		double rate = 1.0;
-		boolean timedTransition;
+		boolean timedTransition = false;
 		boolean deterministicTransition=false;
 		boolean infiniteServer;
 		int angle = 0;
 		int priority = 1;
 		double weight = 1.0;
+		double delay = 0.0;
 
 		String positionXTempStorage = element.getAttribute("positionX");
 		String positionYTempStorage = element.getAttribute("positionY");
@@ -1240,6 +1241,7 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 		String nameInfiniteServer = element.getAttribute("infiniteServer");
 		String nameAngle = element.getAttribute("angle");
 		String namePriority = element.getAttribute("priority");
+		String nameDelay = element.getAttribute("delay");
 		// String nameWeight = element.getAttribute("weight");
 		String parameterTempStorage = element.getAttribute("parameter");
 
@@ -1250,17 +1252,21 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 		 * break; } System.out.println("Attribute " + i + " = " +
 		 * obj.toString()); }
 		 */
+		System.out.println("**********************");
 
-		if (nameTimed.length() == 0) {
-			timedTransition = false;
-		} else if (nameTimed.length() == 5) {
-			timedTransition = false;
-		} else {
+		System.out.println("|"+nameTimed+"|");
+		System.out.println("|"+nameDeterministic+"|");
+
+		if (nameTimed.equals("true")) {System.out.println("***1***");
 			timedTransition = true;
-			if(nameDeterministic.length()!=0)
-			{
-				deterministicTransition = true;
-			}
+		} else  if (nameTimed.equals("false")) {System.out.println("**********2************");
+			timedTransition = false;
+		}
+		
+  		if (nameDeterministic.equals("true")) {System.out.println("***********3***********");
+			deterministicTransition = true;
+		} else  if (nameDeterministic.equals("false")) {System.out.println("*******4***************");
+			deterministicTransition = false;
 		}
 		
 		
@@ -1319,6 +1325,10 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 
 		if (namePriority.length() > 0) {
 			priority = Integer.valueOf(namePriority).intValue();
+		}
+		
+		if (nameDelay.length() > 0) {
+			delay = Double.valueOf(nameDelay).doubleValue();
 		}
 
 		Transition transition = TransitionFactory.createTransition(positionXInput, positionYInput, idInput, nameInput,

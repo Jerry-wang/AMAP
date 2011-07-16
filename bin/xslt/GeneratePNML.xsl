@@ -120,8 +120,10 @@
          <xsl:call-template name="orientation"/>
          <xsl:call-template name="myrate"/>
          <xsl:call-template name="timed"/>
+         <xsl:call-template name="deterministic"/>
          <xsl:call-template name="infinite-server"/>
-         <xsl:call-template name="priority"/>         
+         <xsl:call-template name="priority"/>       
+         <xsl:call-template name="delay"/>         
          <xsl:call-template name="transitionRateParameter"/>
       </xsl:element>
    </xsl:template>
@@ -290,6 +292,14 @@
          </xsl:element>
       </xsl:element>
    </xsl:template>
+   
+   <xsl:template name="deterministic">
+      <xsl:element name = "deterministic">
+         <xsl:element name = "value">
+            <xsl:value-of select="@deterministic"/>
+         </xsl:element>
+      </xsl:element>
+   </xsl:template>
 
    <xsl:template name="infinite-server">
       <xsl:element name = "infiniteServer">
@@ -311,6 +321,14 @@
       <xsl:element name = "priority">
          <xsl:element name = "value">
             <xsl:value-of select="@priority"/>
+         </xsl:element>
+      </xsl:element>
+   </xsl:template>
+   
+   <xsl:template name="delay">
+      <xsl:element name = "delay">
+         <xsl:element name = "value">
+            <xsl:value-of select="@delay"/>
          </xsl:element>
       </xsl:element>
    </xsl:template>

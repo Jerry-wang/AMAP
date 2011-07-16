@@ -35,7 +35,7 @@ Transition transition;
    Double rate;
    String name;   
    RateParameter rParameter;
-   DataLayerInterface pnmlData;
+   DataLayerInterface pnmlData;  
    GuiView view;
    JRootPane rootPane;
    
@@ -673,6 +673,7 @@ Transition transition;
          view.getUndoManager().addEdit(transition.setPriority(newPriority));
       }
       
+      
       if (rateComboBox.getSelectedIndex() > 0) {
          // There's a rate parameter selected
          RateParameter parameter = 
@@ -697,8 +698,14 @@ Transition transition;
          }
          try{
             Double newRate = Double.parseDouble(rateTextField.getText());
-            if (!newRate.equals(rate)) {
-               view.getUndoManager().addEdit(transition.setRate(newRate));
+            if(transition.isDeterministic())
+            {
+            	 transition.setDelay(newRate);
+            }
+            else{
+	            if (!newRate.equals(rate)) {
+	               view.getUndoManager().addEdit(transition.setRate(newRate));
+	            }
             }
          } catch (NumberFormatException nfe){
             rateTextField.setBackground(new Color(255,0,0));

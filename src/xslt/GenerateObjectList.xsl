@@ -154,6 +154,9 @@
          <xsl:attribute name="timed">
             <xsl:value-of select="timed/value"/>
          </xsl:attribute>
+         <xsl:attribute name="deterministic">
+            <xsl:value-of select="deterministic/value"/>
+         </xsl:attribute>
          <xsl:attribute name="angle">
             <xsl:value-of select="orientation/value"/>
          </xsl:attribute>
@@ -165,6 +168,9 @@
          </xsl:attribute>
          <xsl:attribute name="weight">
             <xsl:value-of select="weight/value"/>
+         </xsl:attribute>
+         <xsl:attribute name="delay">
+            <xsl:value-of select="delay/value"/>
          </xsl:attribute>
 <!--         <xsl:attribute name="parameter">
             <xsl:value-of select="toolspecific/name/value"/>
