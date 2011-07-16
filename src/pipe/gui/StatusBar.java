@@ -26,6 +26,10 @@ public class StatusBar
 //           "Timed Transition Mode: Right click on a Transition to see menu " +
 //           "options [Mouse wheel -> rotate]";
 	   		"随机变迁：点击右键-> 查看菜单，滑动滚轮-> 调整方向";
+   
+   public String textforDeterminTrans =
+	   		"确定变迁：点击右键-> 查看菜单，滑动滚轮-> 调整方向";
+   
    public String textforAddtoken =
 //           "Add Token Mode: Click on a Place to add a Token";
 	   		"添加标记：点击库所-> 添加标记";
@@ -87,6 +91,10 @@ public class StatusBar
          case Constants.TIMEDTRANS:
             changeText(textforTimedTrans);
             break;
+            
+         case Constants.DETERMINRANS:
+             changeText(textforDeterminTrans);
+             break;
             
          case Constants.ARC:
             changeText(textforArc);

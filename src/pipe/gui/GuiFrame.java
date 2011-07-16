@@ -137,7 +137,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 	private ZoomAction zoomOutAction, zoomInAction, zoomAction;
 	private DeleteAction deleteAction;
 	private TypeAction annotationAction, arcAction, inhibarcAction,
-			placeAction, transAction, timedtransAction, tokenAction,
+			placeAction, transAction, timedtransAction, determintransAction, tokenAction,
 			selectAction, rateAction, deleteTokenAction,
 			dragAction;
 	private AnimateAction startAction, stepforwardAction, stepbackwardAction,
@@ -409,6 +409,9 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		addMenuItem(drawMenu, timedtransAction = new TypeAction(
 				"随机变迁", Constants.TIMEDTRANS,
 				"添加一个随机变迁", "T", true));
+		addMenuItem(drawMenu, determintransAction = new TypeAction(
+				"确定变迁", Constants.DETERMINRANS,
+				"添加一个确定变迁", "D", true));
 		addMenuItem(drawMenu, arcAction = new TypeAction("弧", Constants.ARC,
 				"添加一条弧", "A", true));
 		addMenuItem(drawMenu, inhibarcAction = new TypeAction("抑制弧",
@@ -545,6 +548,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		addButton(drawingToolBar, placeAction);// Add Draw Menu Buttons
 		addButton(drawingToolBar, transAction);
 		addButton(drawingToolBar, timedtransAction);
+		addButton(drawingToolBar, determintransAction);
 		addButton(drawingToolBar, arcAction);
 		addButton(drawingToolBar, inhibarcAction);
 		addButton(drawingToolBar, annotationAction);
@@ -694,6 +698,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		annotationAction.setEnabled(status);
 		transAction.setEnabled(status);
 		timedtransAction.setEnabled(status);
+		determintransAction.setEnabled(status);
 		tokenAction.setEnabled(status);
 		deleteAction.setEnabled(status);
 		selectAction.setEnabled(status);
@@ -1075,6 +1080,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		placeAction.setSelected(mode == Constants.PLACE);
 		transAction.setSelected(mode == Constants.IMMTRANS);
 		timedtransAction.setSelected(mode == Constants.TIMEDTRANS);
+		determintransAction.setSelected(mode == Constants.DETERMINRANS);
 		arcAction.setSelected(mode == Constants.ARC);
 		inhibarcAction.setSelected(mode == Constants.INHIBARC);
 		tokenAction.setSelected(mode == Constants.ADDTOKEN);
@@ -1316,6 +1322,9 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 			}
 			if (this != timedtransAction) {
 				timedtransAction.setSelected(false);
+			}
+			if (this != determintransAction) {
+				determintransAction.setSelected(false);
 			}
 			if (this != arcAction) {
 				arcAction.setSelected(false);
