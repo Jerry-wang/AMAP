@@ -37,24 +37,29 @@ public class AnnotationNoteHandler
       
       JMenuItem menuItem =
               new JMenuItem(new EditNoteAction((AnnotationNote)myObject));
-      menuItem.setText("Edit text");
+//      menuItem.setText("Edit text");
+      menuItem.setText("编辑注释");
       popup.insert(menuItem, popupIndex++);
       
       menuItem = new JMenuItem(
               new EditAnnotationBorderAction((AnnotationNote)myObject));
       if (((AnnotationNote)myObject).isShowingBorder()){
-         menuItem.setText("Disable Border");
+         menuItem.setText("去除边框");
+//         menuItem.setText("Disable Border");
       } else{
-         menuItem.setText("Enable Border");
+//         menuItem.setText("Enable Border");
+    	  menuItem.setText("显示边框");
       }
       popup.insert(menuItem, popupIndex++);
       
       menuItem = new JMenuItem(
               new EditAnnotationBackgroundAction((AnnotationNote)myObject));
       if (((AnnotationNote)myObject).isFilled()) {
-         menuItem.setText("Transparent");
+//         menuItem.setText("Transparent");
+         menuItem.setText("去除背景");
       } else {
-         menuItem.setText("Solid Background");
+//         menuItem.setText("Solid Background");
+    	  menuItem.setText("显示背景");
       }
       popup.insert(new JPopupMenu.Separator(), popupIndex++);      
       popup.insert(menuItem, popupIndex);

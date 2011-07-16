@@ -143,10 +143,12 @@ public class Animator {
       } else {
          try {
             String s = JOptionPane.showInputDialog(
-                     "Enter number of firings to perform", "1");
+//                     "Enter number of firings to perform", "1");
+            		"请输入触发次数", "1");
             this.numberSequences=Integer.parseInt(s);
             s = JOptionPane.showInputDialog(
-                     "Enter time delay between firing /ms", "50");
+//                     "Enter time delay between firing /ms", "50");
+        			"请输入触发间隔 /ms", "50");
             timer.setDelay(Integer.parseInt(s));
             timer.start();
          } catch (NumberFormatException e) {
