@@ -29,6 +29,7 @@ public class TransitionEditorPanel
 Transition transition;
    boolean attributesVisible;
    boolean timed;
+   boolean deterministic;
    boolean infiniteServer;
    Integer priority = 0;
    Double rate;
@@ -50,6 +51,7 @@ Transition transition;
       rParameter = transition.getRateParameter();
       name = transition.getName();
       timed = transition.isTimed();
+      deterministic = transition.isDeterministic();
       infiniteServer = transition.isInfiniteServer();
       rootPane = _rootPane;
       
@@ -64,13 +66,19 @@ Transition transition;
       
       rate = transition.getRate();
          
-      if (timed){
-         timedTransition();
-      } else {
-         immediateTransition();
-         priority = _transition.getPriority();
+      if(deterministic)
+      {
+    	  deterministicTransition();
       }
-      
+      else
+      {
+	      if (timed){
+	         timedTransition();
+	      } else {
+	         immediateTransition();
+	         priority = _transition.getPriority();
+	      }
+      }
       if (infiniteServer) {
          infiniteServerRadioButton.setSelected(true);
       } else {
@@ -89,7 +97,7 @@ Transition transition;
    
    
    private void timedTransition(){
-      timedRadioButton.setSelected(true);
+//      timedRadioButton.setSelected(true);
       
 //      rateLabel.setText("Rate:");
       rateLabel.setText("速率:");
@@ -119,7 +127,7 @@ Transition transition;
    
    
    private void immediateTransition(){
-      immediateRadioButton.setSelected(true); 
+	   //     immediateRadioButton.setSelected(true); 
       
 //      rateLabel.setText("Weight:");
       rateLabel.setText("权重:");
@@ -142,6 +150,32 @@ Transition transition;
       }            
    }
    
+   	private void deterministicTransition(){
+   		//	  deterministicRadioButton.setSelected(true); 
+	      
+//	      rateLabel.setText("Weight:");
+	      rateLabel.setText("延迟(ms):");
+	      rateTextField.setText("" + transition.getDelay());      
+	      
+	      prioritySlider.setEnabled(false);
+	      priorityTextField.setText("0");
+	      
+	      priorityLabel.setEnabled(false);
+	      priorityPanel.setEnabled(false);
+//	      priorityLabel.setEnabled(true);
+//	      priorityPanel.setEnabled(true);      
+
+	      RateParameter[] rates = pnmlData.getRateParameters();
+	      if (rates.length > 0) {
+	         rateComboBox.addItem("");
+	         for (int i = 0; i < rates.length; i++) {
+	            rateComboBox.addItem(rates[i]);
+	         }
+	      } else {
+	         rateComboBox.setEnabled(false);
+	      }            
+	   }
+   
    /** This method is called from within the constructor to
     * initialize the form.
     * WARNING: Do NOT modify this code. The content of this method is
@@ -151,7 +185,7 @@ Transition transition;
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        timingButtonGroup = new javax.swing.ButtonGroup();
+//        timingButtonGroup = new javax.swing.ButtonGroup();
         semanticsButtonGroup = new javax.swing.ButtonGroup();
         transitionEditorPanel = new javax.swing.JPanel();
         nameLabel = new javax.swing.JLabel();
@@ -160,9 +194,10 @@ Transition transition;
         priorityLabel = new javax.swing.JLabel();
         attributesCheckBox = new javax.swing.JCheckBox();
         rateComboBox = new javax.swing.JComboBox();
-        timingPanel = new javax.swing.JPanel();
-        timedRadioButton = new javax.swing.JRadioButton();
-        immediateRadioButton = new javax.swing.JRadioButton();
+//        timingPanel = new javax.swing.JPanel();
+        //  timedRadioButton = new javax.swing.JRadioButton();
+        //  deterministicRadioButton = new javax.swing.JRadioButton();
+        //  immediateRadioButton = new javax.swing.JRadioButton();
         serverPanel = new javax.swing.JPanel();
         singleServerRadioButton = new javax.swing.JRadioButton();
         infiniteServerRadioButton = new javax.swing.JRadioButton();
@@ -170,7 +205,7 @@ Transition transition;
         rotationComboBox = new javax.swing.JComboBox();
         rateTextField = new javax.swing.JTextField();
         serverLabel = new javax.swing.JLabel();
-        timingLabel = new javax.swing.JLabel();
+       // timingLabel = new javax.swing.JLabel();
         priorityPanel = new javax.swing.JPanel();
         prioritySlider = new javax.swing.JSlider();
         priorityTextField = new javax.swing.JTextField();
@@ -253,25 +288,25 @@ Transition transition;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         transitionEditorPanel.add(rateComboBox, gridBagConstraints);
 
-        timingPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        timingPanel.setLayout(new java.awt.GridLayout(1, 0));
+//        timingPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+//        timingPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        timingButtonGroup.add(timedRadioButton);
+        //        timingButtonGroup.add(timedRadioButton);
 //        timedRadioButton.setText("Timed");
-        timedRadioButton.setText("随机变迁");
-        timedRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        timedRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        timedRadioButton.setMaximumSize(new java.awt.Dimension(90, 15));
-        timedRadioButton.setMinimumSize(new java.awt.Dimension(90, 15));
-        timedRadioButton.setPreferredSize(new java.awt.Dimension(90, 15));
-        timedRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                timedRadioButtonActionPerformed(evt);
-            }
-        });
-        timingPanel.add(timedRadioButton);
+        //    timedRadioButton.setText("随机变迁");
+        //timedRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        //timedRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        //timedRadioButton.setMaximumSize(new java.awt.Dimension(90, 15));
+        //timedRadioButton.setMinimumSize(new java.awt.Dimension(90, 15));
+        //timedRadioButton.setPreferredSize(new java.awt.Dimension(90, 15));
+        //timedRadioButton.addActionListener(new java.awt.event.ActionListener() {
+        //   public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //        timedRadioButtonActionPerformed(evt);
+        //    }
+        //  });
+        //timingPanel.add(timedRadioButton);
 
-        timingButtonGroup.add(immediateRadioButton);
+       /* timingButtonGroup.add(immediateRadioButton);
         //immediateRadioButton.setText("Immediate");
         immediateRadioButton.setText("瞬时变迁");
         immediateRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -285,6 +320,21 @@ Transition transition;
             }
         });
         timingPanel.add(immediateRadioButton);
+        
+        timingButtonGroup.add(deterministicRadioButton);
+        //immediateRadioButton.setText("Immediate");
+        deterministicRadioButton.setText("确定变迁");
+        deterministicRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        deterministicRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        deterministicRadioButton.setMaximumSize(new java.awt.Dimension(90, 15));
+        deterministicRadioButton.setMinimumSize(new java.awt.Dimension(90, 15));
+        deterministicRadioButton.setPreferredSize(new java.awt.Dimension(90, 15));
+        deterministicRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	deterministicRadioButtonActionPerformed(evt);
+            }
+        });
+        timingPanel.add(deterministicRadioButton);*/
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -293,7 +343,7 @@ Transition transition;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        transitionEditorPanel.add(timingPanel, gridBagConstraints);
+//        transitionEditorPanel.add(timingPanel, gridBagConstraints);
 
         serverPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         serverPanel.setLayout(new java.awt.GridLayout(1, 0));
@@ -371,13 +421,13 @@ Transition transition;
         transitionEditorPanel.add(serverLabel, gridBagConstraints);
 
 //        timingLabel.setText("Timing:");
-        timingLabel.setText("随机变迁:");
+        /*timingLabel.setText("变迁类型:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        transitionEditorPanel.add(timingLabel, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);*/
+      //  transitionEditorPanel.add(timingLabel, gridBagConstraints);
 
         prioritySlider.setMajorTickSpacing(50);
         prioritySlider.setMaximum(127);
@@ -512,13 +562,23 @@ Transition transition;
    }//GEN-LAST:event_rateComboBoxActionPerformed
 
    
-   private void timedRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timedRadioButtonActionPerformed
+ /*  private void timedRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timedRadioButtonActionPerformed
       if (timedRadioButton.isSelected()){
          timedTransition();
       } else {
          immediateTransition();
       }
    }//GEN-LAST:event_timedRadioButtonActionPerformed
+   
+   
+   private void deterministicRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_immediateRadioButtonActionPerformed
+	      if (deterministicRadioButton.isSelected()){
+	    	  deterministicTransition();
+	      } else {
+	    	  deterministicTransition();
+	      }
+	   }//GEN-LAST:event_immediateRadioButtonActionPerformed
+   
 
    private void immediateRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_immediateRadioButtonActionPerformed
       if (immediateRadioButton.isSelected()){
@@ -527,7 +587,7 @@ Transition transition;
          timedTransition();
       }
    }//GEN-LAST:event_immediateRadioButtonActionPerformed
-
+*/
    private void prioritySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_prioritySliderStateChanged
       priorityTextField.setText("" +prioritySlider.getValue());
    }//GEN-LAST:event_prioritySliderStateChanged
@@ -567,10 +627,40 @@ Transition transition;
          }
       }
 
-      if (timedRadioButton.isSelected() != timed) {
+      /*if (timedRadioButton.isSelected() != timed) {
          view.getUndoManager().addEdit(
                  transition.setTimed(!timed));
       }
+      
+      if (deterministicRadioButton.isSelected() != deterministic) {
+          view.getUndoManager().addEdit(
+                  transition.setDeterministic((!deterministic)));
+      }*/
+      
+      /*if(timedRadioButton.isSelected()&&(!timed))
+      {
+    	  view.getUndoManager().addEdit(
+                  transition.setTimed(true));
+    	  view.getUndoManager().addEdit(
+                  transition.setDeterministic(false));
+      }
+      
+      if(deterministicRadioButton.isSelected()&&(!deterministic))
+      {
+    	  view.getUndoManager().addEdit(
+                  transition.setTimed(false));
+    	  view.getUndoManager().addEdit(
+                  transition.setDeterministic(true));
+      }
+      
+      if(immediateRadioButton.isSelected() )
+      {
+    	  
+    	  view.getUndoManager().addEdit(
+                  transition.setDeterministic(false));
+    	  view.getUndoManager().addEdit(
+                  transition.setTimed(false));
+      }*/
       
 
       if (infiniteServerRadioButton.isSelected() != infiniteServer) {
@@ -662,7 +752,8 @@ Transition transition;
     private javax.swing.JCheckBox attributesCheckBox;
     private javax.swing.JPanel buttonPanel;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JRadioButton immediateRadioButton;
+//    private javax.swing.JRadioButton immediateRadioButton;
+//    private javax.swing.JRadioButton deterministicRadioButton;//把这几个button干掉的原因是  动态调整变迁类型时  粗细不改变 有问题
     private javax.swing.JRadioButton infiniteServerRadioButton;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
@@ -680,10 +771,10 @@ Transition transition;
     private javax.swing.JLabel serverLabel;
     private javax.swing.JPanel serverPanel;
     private javax.swing.JRadioButton singleServerRadioButton;
-    private javax.swing.JRadioButton timedRadioButton;
-    private javax.swing.ButtonGroup timingButtonGroup;
-    private javax.swing.JLabel timingLabel;
-    private javax.swing.JPanel timingPanel;
+//    private javax.swing.JRadioButton timedRadioButton;
+//    private javax.swing.ButtonGroup timingButtonGroup;
+  //  private javax.swing.JLabel timingLabel;
+  //  private javax.swing.JPanel timingPanel;
     private javax.swing.JPanel transitionEditorPanel;
     // End of variables declaration//GEN-END:variables
    

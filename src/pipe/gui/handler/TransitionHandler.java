@@ -104,6 +104,7 @@ public class TransitionHandler
                  CreateGui.getApp().isEditionAllowed() && 
                  (CreateGui.getApp().getMode() == Constants.TIMEDTRANS || 
                  CreateGui.getApp().getMode() == Constants.IMMTRANS ||
+                 CreateGui.getApp().getMode() == Constants.DETERMINRANS ||
                  CreateGui.getApp().getMode() == Constants.SELECT)) {
             ((Transition)myObject).showEditor();
          } 

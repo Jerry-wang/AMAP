@@ -163,7 +163,9 @@ public class Transition extends PlaceTransitionObject {
 			boolean infServer, int angleInput, int priority) {
 		super(positionXInput, positionYInput, idInput, nameInput,
 				nameOffsetXInput, nameOffsetYInput);
- 		componentWidth = TRANSITION_HEIGHT; // sets width
+		System.out.println("构造方法");
+
+ 		componentWidth = TRANSITION_HEIGHT; // sets width  这个是外面边框的宽度
 		componentHeight = TRANSITION_HEIGHT;// sets height
 		rate = rateInput;
 		timed = timedTransition;
@@ -196,11 +198,13 @@ public class Transition extends PlaceTransitionObject {
 	 */
 	Transition(double positionXInput, double positionYInput, boolean isNarrow) {
 		super(positionXInput, positionYInput);
+		System.out.println("构造方法1");
+
 		if(isNarrow)
-			componentWidth = TRANSITION_WIDTH_NARROW; // sets width
+			componentWidth = TRANSITION_HEIGHT; // sets width 这个是最外面边框的宽度
 		else
-			componentWidth = TRANSITION_WIDTH;
-		componentHeight = TRANSITION_HEIGHT;// sets height
+			componentWidth = TRANSITION_HEIGHT;
+ 		componentHeight = TRANSITION_HEIGHT;// sets height
 		constructTransition(isNarrow);
 		setCentre((int) positionX, (int) positionY);
 		updateBounds();
@@ -211,6 +215,8 @@ public class Transition extends PlaceTransitionObject {
 
 	public Transition paste(double x, double y, boolean fromAnotherView,
 			DataLayerInterface model) {
+		System.out.println("paste");
+
 		Transition copy = TransitionFactory.createTransition(Grid.getModifiedX(x + this.getX()
 				+ Constants.PLACE_TRANSITION_HEIGHT / 2), Grid.getModifiedY(y
 		+ this.getY() + Constants.PLACE_TRANSITION_HEIGHT / 2),!timed&&!deterministic);
@@ -234,7 +240,7 @@ public class Transition extends PlaceTransitionObject {
 		copy.nameOffsetY = this.nameOffsetY;
 
 		copy.timed = this.timed;
-		copy.deterministic = this.deterministic;System.out.println(deterministic);
+		copy.deterministic = this.deterministic; 
 		copy.rate = this.rate;
 		copy.angle = this.angle;
 
@@ -248,6 +254,8 @@ public class Transition extends PlaceTransitionObject {
 	}
 
 	public Transition copy() {
+		System.out.println("copy");
+
 		Transition copy = TransitionFactory.createTransition(ZoomController.getUnzoomedValue(this.getX(),
 				zoom), ZoomController.getUnzoomedValue(this.getY(), zoom),deterministic);
 		copy.pnName.setName(this.getName());
@@ -265,6 +273,7 @@ public class Transition extends PlaceTransitionObject {
 	}
 
 	public void paintComponent(Graphics g) {
+		 System.out.println("paintComponent");
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
@@ -328,12 +337,15 @@ public class Transition extends PlaceTransitionObject {
 			setToolTipText("\u03c0 = " + this.getPriority() + "; w = "
 					+ this.getRate());
 		}
-	}
+		
+ 	}
 
 	/**
 	 * Rotates the Transition through the specified angle around the midpoint
 	 */
 	public UndoableEdit rotate(int angleInc) {
+		System.out.println("rotate");
+
 		angle = (angle + angleInc) % 360;
 		transition.transform(AffineTransform.getRotateInstance(Math
 				.toRadians(angleInc), componentWidth / 2, componentHeight / 2));
@@ -352,6 +364,8 @@ public class Transition extends PlaceTransitionObject {
 	}
 
 	private void outlineTransition() {
+		System.out.println("outlineTransition");
+
 		proximityTransition = (new BasicStroke(
 				Constants.PLACE_TRANSITION_PROXIMITY_RADIUS))
 				.createStrokedShape(transition);
@@ -365,7 +379,7 @@ public class Transition extends PlaceTransitionObject {
 	 * @return True if enabled
 	 */
 	public boolean isEnabled(boolean animationStatus) {
-		if(groupTransition != null){
+ 		if(groupTransition != null){
 			groupTransition.isEnabled(animationStatus);
 		}
 		if (animationStatus == true) {
@@ -452,7 +466,8 @@ public class Transition extends PlaceTransitionObject {
 	}
 
 	public UndoableEdit setRate(double _rate) {
-		double oldRate = rate;
+		System.out.println("UndoableEdit");
+ 		double oldRate = rate;
 
 		rate = _rate;
 		pnName.setText(getAttributes());
@@ -489,6 +504,8 @@ public class Transition extends PlaceTransitionObject {
 
 	/** Set the timed transition attribute (for GSPNs) */
 	public UndoableEdit setTimed(boolean change) {
+		System.out.println("setTimed");
+
 		timed = change;
 		pnName.setText(getAttributes());
 		repaint();
@@ -498,6 +515,9 @@ public class Transition extends PlaceTransitionObject {
 	
 	/** Set the timed transition attribute (for GSPNs) */
 	public UndoableEdit setDeterministic(boolean change) {
+		
+		System.out.println("setDeterministic");
+
 		deterministic = change;
 		pnName.setText(getAttributes());
 		repaint();
@@ -572,8 +592,11 @@ public class Transition extends PlaceTransitionObject {
 	}
 
 	private void constructTransition(boolean isNarrow) {
+		System.out.println("constructTransition");
+
 		transition = new GeneralPath();
-		if(isNarrow){ 
+		 System.out.println(componentWidth);
+		if(isNarrow){
 			transition.append(new Rectangle2D.Double(
 					(componentWidth - TRANSITION_WIDTH_NARROW) / 2, 0, TRANSITION_WIDTH_NARROW,
 					TRANSITION_HEIGHT), false);
@@ -582,7 +605,8 @@ public class Transition extends PlaceTransitionObject {
 			transition.append(new Rectangle2D.Double(
 					(componentWidth - TRANSITION_WIDTH) / 2, 0, TRANSITION_WIDTH,
 					TRANSITION_HEIGHT), false);
-		}
+		} 
+		 
 		outlineTransition();
 	}
 
@@ -758,6 +782,8 @@ public class Transition extends PlaceTransitionObject {
 	}
 
 	public void addedToGui() {
+		System.out.println("addedToGui");
+
 		super.addedToGui();
 		update();
 	}
@@ -850,6 +876,7 @@ public class Transition extends PlaceTransitionObject {
 	}
 
 	public void update() {
+		System.out.println("update");
 		pnName.setText(getAttributes());
 		pnName.zoomUpdate(zoom);
 		super.update();
