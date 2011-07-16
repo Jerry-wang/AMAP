@@ -1222,6 +1222,7 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 		double nameOffsetXInput = 0;
 		double rate = 1.0;
 		boolean timedTransition;
+		boolean deterministicTransition=false;
 		boolean infiniteServer;
 		int angle = 0;
 		int priority = 1;
@@ -1235,6 +1236,7 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 		String nameOffsetYTempStorage = element.getAttribute("nameOffsetY");
 		String nameRate = element.getAttribute("rate");
 		String nameTimed = element.getAttribute("timed");
+		String nameDeterministic = element.getAttribute("deterministic");
 		String nameInfiniteServer = element.getAttribute("infiniteServer");
 		String nameAngle = element.getAttribute("angle");
 		String namePriority = element.getAttribute("priority");
@@ -1255,7 +1257,13 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 			timedTransition = false;
 		} else {
 			timedTransition = true;
+			if(nameDeterministic.length()!=0)
+			{
+				deterministicTransition = true;
+			}
 		}
+		
+		
 
 		infiniteServer = !(nameInfiniteServer.length() == 0 || nameInfiniteServer
 				.length() == 5);
@@ -1314,7 +1322,7 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 		}
 
 		Transition transition = TransitionFactory.createTransition(positionXInput, positionYInput, idInput, nameInput,
-				nameOffsetXInput, nameOffsetYInput, rate, timedTransition, infiniteServer, angle, priority);
+				nameOffsetXInput, nameOffsetYInput, rate, timedTransition, deterministicTransition, infiniteServer, angle, priority);
 
 		if (parameterTempStorage.length() > 0) {
 			if (existsRateParameter(parameterTempStorage)) {
@@ -2543,7 +2551,7 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 	/* (non-Javadoc)
 	 * @see pipe.common.dataLayer.DataLayerInterface#createFromPNML(org.w3c.dom.Document)
 	 */
-	public void createFromPNML(Document PNMLDoc) {
+	public void createFromPNML(Document PNMLDoc) {//导入
 		emptyPNML();
 		Element element = null;
 		Node node = null;

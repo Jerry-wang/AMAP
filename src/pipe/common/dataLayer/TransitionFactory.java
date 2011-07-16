@@ -5,16 +5,16 @@ public class TransitionFactory {
 	public static Transition createTransition(double positionXInput,
 			double positionYInput, String idInput, String nameInput,
 			double nameOffsetXInput, double nameOffsetYInput, double rateInput,
-			boolean timedTransition, boolean infServer, int angleInput,
-			int priority) {
+			boolean timedTransition, boolean deterministicTransition, boolean infServer, int angleInput,
+			int priority) {System.out.println("----");
 		return new Transition(positionXInput, positionYInput, idInput,
 				nameInput, nameOffsetXInput, nameOffsetYInput, rateInput,
-				timedTransition, infServer, angleInput, priority);
+				timedTransition, deterministicTransition, infServer, angleInput, priority);
 	}
 
 	public static Transition createTransition(double positionXInput,
-			double positionYInput) {
-		return new Transition(positionXInput, positionYInput);
+			double positionYInput, boolean isNarrow) {
+		return new Transition(positionXInput, positionYInput, isNarrow);
 	}
 
 }

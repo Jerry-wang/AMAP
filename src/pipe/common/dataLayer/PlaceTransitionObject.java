@@ -562,4 +562,8 @@ public abstract class PlaceTransitionObject extends PetriNetObject implements
 
 		return pnObjectCopy;
 	}
+
+	public void setComponentWidth(double componentWidth) {
+		this.componentWidth = componentWidth;
+	}
 }

@@ -77,9 +77,12 @@ public class Transition extends PlaceTransitionObject {
 	private GeneralPath transition;
 	private Shape proximityTransition;
 	/** Place Width */
-	public static final int TRANSITION_HEIGHT = Constants.PLACE_TRANSITION_HEIGHT;
+	public static  final int TRANSITION_HEIGHT = Constants.PLACE_TRANSITION_HEIGHT;
 	/** Place Width */
 	public static final int TRANSITION_WIDTH = TRANSITION_HEIGHT / 3;
+	
+	/** Place Width */
+	public static  int TRANSITION_WIDTH_NARROW = TRANSITION_HEIGHT / 5;
 
 	private int angle;
 	private boolean enabled = false;
@@ -98,8 +101,16 @@ public class Transition extends PlaceTransitionObject {
 	 */
 	private boolean delayValid;
 
-	/** Is this a timed transition or not? */
-	private boolean timed = false;
+	/** Is this a timed transition or not? *//*
+	private boolean timed = false;*/
+	
+	/** Is this a timed transition or deterministic? */
+	/**
+	 * 这里的规则是 timed false 则是瞬时变迁； timed true 并且 deterministic true是确定变迁
+	 * 										timed true     deterministic false是随机变迁
+	 */
+	private boolean  timed = false;
+	private boolean  deterministic = false;  
 
 	private static final double rootThreeOverTwo = 0.5 * Math.sqrt(3);
 
@@ -148,22 +159,31 @@ public class Transition extends PlaceTransitionObject {
 	 */
 	Transition(double positionXInput, double positionYInput,
 			String idInput, String nameInput, double nameOffsetXInput,
-			double nameOffsetYInput, double rateInput, boolean timedTransition,
+			double nameOffsetYInput, double rateInput, boolean timedTransition, boolean deterministicTransition,
 			boolean infServer, int angleInput, int priority) {
 		super(positionXInput, positionYInput, idInput, nameInput,
 				nameOffsetXInput, nameOffsetYInput);
-		componentWidth = TRANSITION_HEIGHT; // sets width
+ 		componentWidth = TRANSITION_HEIGHT; // sets width
 		componentHeight = TRANSITION_HEIGHT;// sets height
 		rate = rateInput;
 		timed = timedTransition;
+		deterministic = deterministicTransition; System.out.println(deterministicTransition);
 		infiniteServer = infServer;
-		constructTransition();
+		constructTransition(!timedTransition);
 		angle = 0;
 		setCentre((int) positionX, (int) positionY);
 		rotate(angleInput);
 		updateBounds();
 		// this.updateEndPoints();
 		this.priority = priority;
+		/*if(timedTransition)
+		{
+			Transition.TRANSITION_WIDTH = Transition.TRANSITION_HEIGHT/6;
+		}
+		if(!timedTransition)
+		{
+			Transition.TRANSITION_WIDTH = Transition.TRANSITION_HEIGHT/3;
+		}*/
 	}
 
 	/**
@@ -174,21 +194,26 @@ public class Transition extends PlaceTransitionObject {
 	 * @param positionYInput
 	 *            Y-axis Position
 	 */
-	Transition(double positionXInput, double positionYInput) {
+	Transition(double positionXInput, double positionYInput, boolean isNarrow) {
 		super(positionXInput, positionYInput);
-		componentWidth = TRANSITION_HEIGHT; // sets width
+		if(isNarrow)
+			componentWidth = TRANSITION_WIDTH_NARROW; // sets width
+		else
+			componentWidth = TRANSITION_WIDTH;
 		componentHeight = TRANSITION_HEIGHT;// sets height
-		constructTransition();
+		constructTransition(isNarrow);
 		setCentre((int) positionX, (int) positionY);
 		updateBounds();
 		this.updateEndPoints();
+		
 	}
+	 
 
 	public Transition paste(double x, double y, boolean fromAnotherView,
 			DataLayerInterface model) {
 		Transition copy = TransitionFactory.createTransition(Grid.getModifiedX(x + this.getX()
 				+ Constants.PLACE_TRANSITION_HEIGHT / 2), Grid.getModifiedY(y
-		+ this.getY() + Constants.PLACE_TRANSITION_HEIGHT / 2));
+		+ this.getY() + Constants.PLACE_TRANSITION_HEIGHT / 2),!timed&&!deterministic);
 
 		String newName = this.pnName.getName() + "(" + this.getCopyNumber()
 				+ ")";
@@ -209,6 +234,7 @@ public class Transition extends PlaceTransitionObject {
 		copy.nameOffsetY = this.nameOffsetY;
 
 		copy.timed = this.timed;
+		copy.deterministic = this.deterministic;System.out.println(deterministic);
 		copy.rate = this.rate;
 		copy.angle = this.angle;
 
@@ -223,11 +249,12 @@ public class Transition extends PlaceTransitionObject {
 
 	public Transition copy() {
 		Transition copy = TransitionFactory.createTransition(ZoomController.getUnzoomedValue(this.getX(),
-				zoom), ZoomController.getUnzoomedValue(this.getY(), zoom));
+				zoom), ZoomController.getUnzoomedValue(this.getY(), zoom),deterministic);
 		copy.pnName.setName(this.getName());
 		copy.nameOffsetX = this.nameOffsetX;
 		copy.nameOffsetY = this.nameOffsetY;
 		copy.timed = this.timed;
+		copy.deterministic = this.deterministic;System.out.println(deterministic);
 		copy.rate = this.rate;
 		copy.angle = this.angle;
 		copy.attributesVisible = this.attributesVisible;
@@ -250,7 +277,7 @@ public class Transition extends PlaceTransitionObject {
 			g2.setColor(Constants.ELEMENT_FILL_COLOUR);
 		}
 
-		if (timed) {
+		if (timed) {System.out.println("Transition.java line 256");
 			if (infiniteServer) {
 				for (int i = 2; i >= 1; i--) {
 					g2.translate(2 * i, -2 * i);
@@ -465,12 +492,27 @@ public class Transition extends PlaceTransitionObject {
 		timed = change;
 		pnName.setText(getAttributes());
 		repaint();
+		 
+		return new TransitionTimingEdit(this);
+	}
+	
+	/** Set the timed transition attribute (for GSPNs) */
+	public UndoableEdit setDeterministic(boolean change) {
+		deterministic = change;
+		pnName.setText(getAttributes());
+		repaint();
+		 
 		return new TransitionTimingEdit(this);
 	}
 
 	/** Get the timed transition attribute (for GSPNs) */
 	public boolean isTimed() {
 		return timed;
+	}
+	
+	/** Get the timed transition attribute (for GSPNs) */
+	public boolean isDeterministic() {
+		return deterministic;
 	}
 
 	/**
@@ -529,11 +571,18 @@ public class Transition extends PlaceTransitionObject {
 		delayValid = _delayValid;
 	}
 
-	private void constructTransition() {
+	private void constructTransition(boolean isNarrow) {
 		transition = new GeneralPath();
-		transition.append(new Rectangle2D.Double(
-				(componentWidth - TRANSITION_WIDTH) / 2, 0, TRANSITION_WIDTH,
-				TRANSITION_HEIGHT), false);
+		if(isNarrow){ 
+			transition.append(new Rectangle2D.Double(
+					(componentWidth - TRANSITION_WIDTH_NARROW) / 2, 0, TRANSITION_WIDTH_NARROW,
+					TRANSITION_HEIGHT), false);
+		
+		}else{System.out.println(2222);
+			transition.append(new Rectangle2D.Double(
+					(componentWidth - TRANSITION_WIDTH) / 2, 0, TRANSITION_WIDTH,
+					TRANSITION_HEIGHT), false);
+		}
 		outlineTransition();
 	}
 

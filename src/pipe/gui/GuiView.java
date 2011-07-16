@@ -8,24 +8,18 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.geom.Point2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.AbstractAction;
 
 import javax.swing.JLayeredPane;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputAdapter;
@@ -51,8 +45,8 @@ import pipe.gui.handler.LabelHandler;
 import pipe.gui.handler.ParameterHandler;
 import pipe.gui.handler.PlaceHandler;
 import pipe.gui.handler.TransitionHandler;
-import pipe.gui.undo.UndoManager;
 import pipe.gui.undo.AddPetriNetObjectEdit;
+import pipe.gui.undo.UndoManager;
 
 
 /**
@@ -367,6 +361,7 @@ public class GuiView
    
    
    public void drag(Point dragStart, Point dragEnd) {
+	   System.out.println("drag");
       if (dragStart == null) {
          return;
       }
@@ -495,11 +490,15 @@ public class GuiView
       }
       
       
-      private PlaceTransitionObject newTransition(Point p, boolean timed){
-         p = adjustPoint(p, view.getZoom());
+      private PlaceTransitionObject newTransition(Point p, boolean timed,  boolean deterministic){
+     	  p = adjustPoint(p, view.getZoom());
+    	  boolean isNarrow = !timed&&!deterministic;
          
-         pnObject = TransitionFactory.createTransition(Grid.getModifiedX(p.x), Grid.getModifiedY(p.y));
-         ((Transition)pnObject).setTimed(timed);
+         pnObject = TransitionFactory.createTransition(Grid.getModifiedX(p.x), Grid.getModifiedY(p.y), isNarrow);
+          ((Transition)pnObject).setTimed(timed);
+          ((Transition)pnObject).setDeterministic(deterministic);
+          System.out.println(11);
+         
          model.addPetriNetObject(pnObject);
          view.addNewPetriNetObject(pnObject);
          return (PlaceTransitionObject)pnObject;
@@ -525,8 +524,20 @@ public class GuiView
                   
                case Constants.IMMTRANS:
                case Constants.TIMEDTRANS:
-                  boolean timed = (mode == Constants.TIMEDTRANS ? true : false);
-                  pto = newTransition(e.getPoint(), timed);
+               case Constants.DETERMINRANS:
+//                  boolean timed = (mode == Constants.TIMEDTRANS ? true : false);
+                  boolean timed, deterministic;
+            	  if(mode == Constants.TIMEDTRANS)
+            		  timed = true;
+            	  else
+            		  timed = false;
+                  if(mode==Constants.DETERMINRANS)
+                  {
+                 	  deterministic=true;
+                  }
+                  else
+                	  deterministic=false;
+                  pto = newTransition(e.getPoint(), timed, deterministic);
                   getUndoManager().addNewEdit(
                           new AddPetriNetObjectEdit(pto, view, model));
                   if (e.isControlDown()) {
@@ -622,6 +633,7 @@ public class GuiView
                   break;
                   
                case Constants.FAST_TRANSITION:
+            	   System.out.println("FAST_TRANSITION");
                   if (e.isMetaDown() || metaDown) { // provisional
                      if (createArc != null) {
                         addPoint(createArc, e);
@@ -633,11 +645,17 @@ public class GuiView
                      // user has not clicked on an old PetriNetObject, so
                      // a new PNO must be created
                      view.newPNO = true;
-                     timed = e.isAltDown();
+                   /*  timed = e.isAltDown();
                      if (app.getOldMode() == Constants.TIMEDTRANS){
                         timed = !timed;
-                     } 
-                     createPTO = newTransition(e.getPoint(), timed);
+                     } */
+                     if(app.getOldMode()==Constants.TIMEDTRANS)
+                    	 createPTO = newTransition(e.getPoint(), true, false);
+                     if(app.getOldMode()==Constants.IMMTRANS)
+                    	 createPTO = newTransition(e.getPoint(), false, false);
+                     if(app.getOldMode()==Constants.DETERMINRANS)
+                    	 createPTO = newTransition(e.getPoint(), false, true);
+                
                      getUndoManager().addNewEdit(
                              new AddPetriNetObjectEdit(createPTO, view, model));
                      pnObject.getMouseListeners()[0].mouseReleased(e);

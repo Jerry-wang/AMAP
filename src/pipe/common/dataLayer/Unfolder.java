@@ -89,11 +89,12 @@ public class Unfolder {
 			double transNameOffsetYInput = transitions[i].nameOffsetY;
 			double rateInput = transitions[i].getRate();
 			boolean timedTransition = transitions[i].isTimed();
+			boolean deterministicTransition = transitions[i].isDeterministic();
 			boolean infServer = transitions[i].isInfiniteServer();
 			int angleInput = transitions[i].getAngle();
 			int priority = transitions[i].getPriority();
 			Transition newTransition = TransitionFactory.createTransition(transPositionXInput, transPositionYInput, transIdInput,
-					transIdInput, transNameOffsetXInput, transNameOffsetYInput, rateInput, timedTransition, infServer,
+					transIdInput, transNameOffsetXInput, transNameOffsetYInput, rateInput, timedTransition, deterministicTransition, infServer,
 					angleInput, priority);
 			newTransitions.add(newTransition);
 

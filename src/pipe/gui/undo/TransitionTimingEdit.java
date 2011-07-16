@@ -25,12 +25,14 @@ public class TransitionTimingEdit
    /** */
    public void undo() {
       transition.setTimed(!transition.isTimed());
+      transition.setDeterministic(!transition.isDeterministic());
    }
 
    
    /** */
    public void redo() {
       transition.setTimed(!transition.isTimed());
+      transition.setDeterministic(!transition.isDeterministic());
    }
    
 }
