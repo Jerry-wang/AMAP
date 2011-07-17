@@ -1241,7 +1241,7 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 		String nameInfiniteServer = element.getAttribute("infiniteServer");
 		String nameAngle = element.getAttribute("angle");
 		String namePriority = element.getAttribute("priority");
-		String nameDelay = element.getAttribute("delay");
+		String nameDelay = element.getAttribute("delay");System.out.println(nameDelay+"!!!!!");
 		// String nameWeight = element.getAttribute("weight");
 		String parameterTempStorage = element.getAttribute("parameter");
 
@@ -1332,7 +1332,7 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 		}
 
 		Transition transition = TransitionFactory.createTransition(positionXInput, positionYInput, idInput, nameInput,
-				nameOffsetXInput, nameOffsetYInput, rate, timedTransition, deterministicTransition, infiniteServer, angle, priority);
+				nameOffsetXInput, nameOffsetYInput, rate, timedTransition, deterministicTransition, infiniteServer, angle, priority, delay);
 
 		if (parameterTempStorage.length() > 0) {
 			if (existsRateParameter(parameterTempStorage)) {

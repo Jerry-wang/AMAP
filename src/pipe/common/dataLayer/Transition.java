@@ -160,7 +160,7 @@ public class Transition extends PlaceTransitionObject {
 	Transition(double positionXInput, double positionYInput,
 			String idInput, String nameInput, double nameOffsetXInput,
 			double nameOffsetYInput, double rateInput, boolean timedTransition, boolean deterministicTransition,
-			boolean infServer, int angleInput, int priority) {
+			boolean infServer, int angleInput, int priority, double delay) {
 		super(positionXInput, positionYInput, idInput, nameInput,
 				nameOffsetXInput, nameOffsetYInput);
 		System.out.println("构造方法");//构造方法   在打开文件的时候就用到了
@@ -178,6 +178,7 @@ public class Transition extends PlaceTransitionObject {
 		updateBounds();
 		// this.updateEndPoints();
 		this.priority = priority;
+		this.delay = delay;
 		/*if(timedTransition)
 		{
 			Transition.TRANSITION_WIDTH = Transition.TRANSITION_HEIGHT/6;

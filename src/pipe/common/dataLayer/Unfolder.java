@@ -93,9 +93,10 @@ public class Unfolder {
 			boolean infServer = transitions[i].isInfiniteServer();
 			int angleInput = transitions[i].getAngle();
 			int priority = transitions[i].getPriority();
+			double delay = transitions[i].getDelay();
 			Transition newTransition = TransitionFactory.createTransition(transPositionXInput, transPositionYInput, transIdInput,
 					transIdInput, transNameOffsetXInput, transNameOffsetYInput, rateInput, timedTransition, deterministicTransition, infServer,
-					angleInput, priority);
+					angleInput, priority,delay);
 			newTransitions.add(newTransition);
 
 			// Now analyse all arcs connected to this transition
