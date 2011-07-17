@@ -1252,20 +1252,15 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 		 * break; } System.out.println("Attribute " + i + " = " +
 		 * obj.toString()); }
 		 */
-		System.out.println("**********************");
-
-		System.out.println("|"+nameTimed+"|");
-		System.out.println("|"+nameDeterministic+"|");
-
-		if (nameTimed.equals("true")) {System.out.println("***1***");
+ 		if (nameTimed.equals("true")) { 
 			timedTransition = true;
-		} else  if (nameTimed.equals("false")) {System.out.println("**********2************");
+		} else  if (nameTimed.equals("false")) { 
 			timedTransition = false;
 		}
 		
-  		if (nameDeterministic.equals("true")) {System.out.println("***********3***********");
+  		if (nameDeterministic.equals("true")) { 
 			deterministicTransition = true;
-		} else  if (nameDeterministic.equals("false")) {System.out.println("*******4***************");
+		} else  if (nameDeterministic.equals("false")) { 
 			deterministicTransition = false;
 		}
 		

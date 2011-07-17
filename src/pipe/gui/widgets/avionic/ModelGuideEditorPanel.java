@@ -1,4 +1,4 @@
-package pipe.gui.widgets;
+package pipe.gui.widgets.avionic;
 
 import java.awt.Color;
 import java.util.Enumeration;
@@ -17,9 +17,9 @@ import pipe.gui.GuiView;
 
 /**
  *
- * @author  pere
+ * @author  Jerry-wang 新增加的  主要是 建模向导用的 面板
  */
-public class TransitionEditorPanel
+public class ModelGuideEditorPanel
         extends javax.swing.JPanel {
    
    /**
@@ -43,7 +43,7 @@ public class TransitionEditorPanel
    /**
     * Creates new form PlaceEditor
     */
-   public TransitionEditorPanel(JRootPane _rootPane, Transition _transition,
+   public ModelGuideEditorPanel(JRootPane _rootPane, Transition _transition,
            DataLayerInterface _pnmlData, GuiView _view) {
       transition = _transition;
       pnmlData = _pnmlData;
