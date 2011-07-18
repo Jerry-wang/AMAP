@@ -365,8 +365,12 @@ public class DataLayerWriter {
          arcElement.setAttribute("target", (targetInput != null ? targetInput : ""));
          arcElement.setAttribute("type", inputArc.getType());
 
-         String weightOutput = weightInput.get(0).getTokenClass().getID() + "," + weightInput.get(0).getCurrentMarking();
-         for(int i = 1; i < weightInput.size(); i++){
+         String weightOutput = "";
+         if(weightInput.size()!=0)
+         {
+        	 weightOutput = weightInput.get(0).getTokenClass().getID() + "," + weightInput.get(0).getCurrentMarking();
+         } 
+        for(int i = 1; i < weightInput.size(); i++){
         	 weightOutput += "," + weightInput.get(i).getTokenClass().getID() + "," + weightInput.get(i).getCurrentMarking();
          }
          arcElement.setAttribute("inscription", weightOutput);

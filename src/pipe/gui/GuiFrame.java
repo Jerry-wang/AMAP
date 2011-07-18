@@ -854,7 +854,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 			appView.setNetChanged(false);
 			appTab.setTitleAt(appTab.getSelectedIndex(), outFile.getName());
 			setTitle(outFile.getName()); // Change the window title
-			appView.getUndoManager().clear();
+			appView.getUndoManager().clear(); 
 			undoAction.setEnabled(false);
 			redoAction.setEnabled(false);
 		} catch (Exception e) {

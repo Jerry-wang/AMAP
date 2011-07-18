@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<pnml>
-<net id="Net-One" type="P/T net">
-<tokenclass id="Default" enabled="true" red="0" green="0" blue="0"/>
-</net>
-</pnml>
