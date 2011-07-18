@@ -175,7 +175,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setSize(screenSize.width * 80 / 100, screenSize.height * 80 / 100);
 		this.setLocationRelativeTo(null);
-
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH );//启动时候最大化
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 		buildMenus();
@@ -1840,6 +1840,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 					CreateGui.userPath = filePath.getParent();
 					createNewTab(filePath, false);
 				}
+				System.out.println(filePath);
 				if ((filePath != null) && (!filePath.exists())) {
 					String message = "File \"" + filePath.getName()
 							+ "\" does not exist.";

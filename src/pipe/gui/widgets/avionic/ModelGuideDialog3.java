@@ -175,7 +175,7 @@ public class ModelGuideDialog3 extends javax.swing.JDialog {
             jLabel5.setText("编号");
             jLabel7.setText("ID");
             jLabel8.setText("终端消息类型");
-            jLabel9.setText("参数(周期/频度)");
+            jLabel9.setText("周期(单位:ms)");
             
             //这块一下把十个都设置好吧  然后 这里4-10的响应函数 没调整呢 注意
             jLabel1_1.setText("   1");
@@ -490,20 +490,30 @@ public class ModelGuideDialog3 extends javax.swing.JDialog {
         // TODO add your handling code here:
     	System.out.println("jComboBox3_1:"+jComboBox3_1.getSelectedIndex());
     	typeOfRT[1] = jComboBox3_1.getSelectedIndex();
-    	
-    	
+    	if(jComboBox3_1.getSelectedIndex()==1)
+    	{
+    		jTextField4_1.setEditable(false);
+    	}
     }
 
     private void jComboBox3_2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     	System.out.println("jComboBox3_2:"+jComboBox3_2.getSelectedIndex());
     	typeOfRT[2] = jComboBox3_2.getSelectedIndex(); 
+    	if(jComboBox3_2.getSelectedIndex()==1)
+    	{
+    		jTextField4_2.setEditable(false);
+    	}
     }
 
     private void jComboBox3_3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     	System.out.println("jComboBox3_3:"+jComboBox3_3.getSelectedIndex());
     	typeOfRT[3] = jComboBox3_3.getSelectedIndex();
+    	if(jComboBox3_3.getSelectedIndex()==1)
+    	{
+    		jTextField4_3.setEditable(false);
+    	}
     }
 
     private void jButton5_1ActionPerformed(java.awt.event.ActionEvent evt) {

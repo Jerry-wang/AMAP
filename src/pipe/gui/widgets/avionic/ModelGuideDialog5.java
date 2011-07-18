@@ -1,12 +1,15 @@
 package pipe.gui.widgets.avionic;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
 import pipe.gui.CreateGui;
+import pipe.gui.widgets.FileBrowser;
 
 /**
  *
@@ -265,6 +268,24 @@ public class ModelGuideDialog5 extends javax.swing.JDialog {
         // TODO add your handling code here:
     	System.out.print("优先级：");
     	System.out.println(listModelAfter.get(0)+">"+listModelAfter.get(1)+">"+listModelAfter.get(2));
+    	System.out.println(System.getProperty("user.dir"));
+    	String path = System.getProperty("user.dir")+"//bin//AFDX_3_PRIORITY.xml";
+    	File filePath = new File(path);
+		if ((filePath != null) && filePath.exists()
+				&& filePath.isFile() && filePath.canRead()) {
+			CreateGui.userPath = filePath.getParent();
+			CreateGui.getApp().createNewTab(filePath, false);
+		}
+		if ((filePath != null) && (!filePath.exists())) {
+			String message = "File \"" + filePath.getName()
+					+ "\" does not exist.";
+			JOptionPane.showMessageDialog(null, message, "Warning",
+					JOptionPane.WARNING_MESSAGE);
+		}
+		else {
+			System.out.println("有问题");
+		}
+		doClose(RET_OK);
     }                                               
 
     private void jListBeforeKeyPressed(java.awt.event.KeyEvent evt) {

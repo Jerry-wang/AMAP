@@ -4,7 +4,7 @@ import pipe.gui.CreateGui;
 
 /**
  *
- * @author Administrator
+ * @author Jerry-wang
  */
 public class ModelGuideDialog4 extends javax.swing.JDialog {
 
