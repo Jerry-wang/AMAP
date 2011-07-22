@@ -12,6 +12,9 @@
 package pipe.gui.widgets.avionic;
 
 import java.awt.event.ActionEvent;
+import java.util.regex.Pattern;
+
+import javax.swing.JOptionPane;
 
 import pipe.gui.CreateGui;
 
@@ -23,8 +26,9 @@ import pipe.gui.CreateGui;
 public class ModelGuideDialog2 extends javax.swing.JDialog {
 
     /** Creates new form ModelGuideDialog1 */
-    public ModelGuideDialog2(java.awt.Frame parent, boolean modal) {
+    public ModelGuideDialog2(java.awt.Frame parent, boolean modal, GuideVO vo) {
         super(parent, modal);
+        nowVo = vo;
         initComponents();
     }
 
@@ -37,7 +41,7 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-    	buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -50,6 +54,13 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButton5 = new javax.swing.JRadioButton();
+        jRadioButton6 = new javax.swing.JRadioButton();
+        jRadioButton7 = new javax.swing.JRadioButton();
+        jRadioButton8 = new javax.swing.JRadioButton();
+        jRadioButton9 = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
@@ -75,7 +86,7 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -98,7 +109,6 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
                 jButton2ActionPerformed(evt);
             }
         });
-
         jButton3.setText("取消");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,8 +117,12 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
         });
 
         buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("2");
+        if(nowVo.getNumOfRTs()==1)
+        {
+        	jRadioButton1.setSelected(true);
+        }
+        
+        jRadioButton1.setText(" 1");
         jRadioButton1.setAutoscrolls(true);
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,57 +131,164 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
         });
 
         buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("3");
-        jRadioButton2.setActionCommand("3");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        if(nowVo.getNumOfRTs()==2)
+        {
+        	jRadioButton2.setSelected(true);
+        }
+        jRadioButton2.setText(" 2");
+         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
             }
         });
 
         buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("4");
-        jRadioButton3.setActionCommand("4");
+        if(nowVo.getNumOfRTs()==3)
+        {
+        	jRadioButton3.setSelected(true);
+        }
+        jRadioButton3.setText(" 3");
         jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton3ActionPerformed(evt);
             }
         });
-        
+ 
         buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setText("5");
+        if(nowVo.getNumOfRTs()==4)
+        {
+        	jRadioButton4.setSelected(true);
+        }
+        jRadioButton4.setText(" 4");
         jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton4ActionPerformed(evt);
             }
         });
 
+        buttonGroup1.add(jRadioButton5);
+        if(nowVo.getNumOfRTs()==5)
+        {
+        	jRadioButton5.setSelected(true);
+        }
+        jRadioButton5.setText(" 5");
+        jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton5ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton6);
+        if(nowVo.getNumOfRTs()==6)
+        {
+        	jRadioButton6.setSelected(true);
+        }
+        jRadioButton6.setText(" 6");
+        jRadioButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton6ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton7);
+        if(nowVo.getNumOfRTs()==7)
+        {
+        	jRadioButton7.setSelected(true);
+        }
+        jRadioButton7.setText(" 7");
+        jRadioButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton7ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton8);
+        if(nowVo.getNumOfRTs()==8)
+        {
+        	jRadioButton8.setSelected(true);
+        }
+        jRadioButton8.setText(" 8");
+        jRadioButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton8ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton9);
+        if(nowVo.getNumOfRTs()==9)
+        {
+        	jRadioButton9.setSelected(true);
+        }
+        jRadioButton9.setText(" 9");
+        jRadioButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton9ActionPerformed(evt);
+            }
+        });
+
+        if(nowVo.getNumOfRTs()>9)
+        {
+        	jTextField1.setText(nowVo.getNumOfRTs()+"");
+        }
+        jLabel5.setText("其他");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(44, 44, 44)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jRadioButton2)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton3)
-                        .addComponent(jRadioButton4))
-                    .addContainerGap(44, Short.MAX_VALUE))
-            );
-            jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(22, 22, 22)
-                    .addComponent(jRadioButton1)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jRadioButton1)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRadioButton4)
+                                .addComponent(jRadioButton7)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jRadioButton2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton3))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jRadioButton5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton6))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jRadioButton8)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton9)))))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton2)
-                    .addGap(2, 2, 2)
                     .addComponent(jRadioButton3)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jRadioButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton4)
-                    .addContainerGap(72, Short.MAX_VALUE))
-            );
+                    .addComponent(jRadioButton5)
+                    .addComponent(jRadioButton6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton7)
+                    .addComponent(jRadioButton8)
+                    .addComponent(jRadioButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
 
         jLabel4.setText("根据系统情况，选择终端组件个数");
 
@@ -175,17 +296,17 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(26, 26, 26))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel4)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         jButton4.setText("上一步");
@@ -201,19 +322,19 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(300, Short.MAX_VALUE)
+                .addContainerGap(307, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
                 .addGap(8, 8, 8))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(126, 126, 126)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,8 +342,8 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -237,58 +358,90 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
     }// </editor-fold>
 
     protected void jButton2ActionPerformed(ActionEvent evt) {
-    	//下一步button
-    	doClose(RET_OK);//下一步 button
-       	ModelGuideDialog3 guiDialog =  new ModelGuideDialog3(CreateGui.getApp(), true, numOfRT);  
+		// TODO Auto-generated method stub
+    	String num = jTextField1.getText().trim();
+    	
+     	if(!num.equals(""))
+    	{
+     		Pattern pattern = Pattern.compile("[1|2|3|4|5|6|7|8|9][0-9]*");
+
+     	    if(!pattern.matcher(num).matches()) 
+     	    {
+     	    	JOptionPane.showMessageDialog(this, "终端个数输入有误！请重新输入", "Warning",
+    					JOptionPane.WARNING_MESSAGE);
+     	    	return;
+     	    }
+     	 
+     	     
+    		int numOfRts = Integer.parseInt(num);
+    		nowVo.setNumOfRTs(numOfRts);
+    	}
+    	
+    	doClose(RET_OK);
+//    	ModelGuideDialog3 guiDialog =  ModelGuideDialog3Factory.getDialog(CreateGui.getApp(), true, nowVo);
+    	ModelGuideDialog3 guiDialog =  new ModelGuideDialog3(CreateGui.getApp(), true, nowVo);  
         guiDialog.pack();
         guiDialog.setLocationRelativeTo(null);
         guiDialog.setVisible(true);
-    	
 	}
 
-    //这边命名有点奇怪，这边  jRadioButton1  对应  有2个RT  |  jRadioButton2  对应  有3个RT  以此类推，暂时这样
 	private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
-		System.out.println("有2个终端");
-		numOfRT = 2;
-    }  
-	
-	private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-		System.out.println("有3个终端");
-		numOfRT = 3;
-    }
-	
-	private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-		System.out.println("有4个终端");
-		numOfRT = 4;
-    }
-	
-	private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-		System.out.println("有5个终端");
-		numOfRT = 5;
-    }
-	
-	
+		nowVo.setNumOfRTs(1);
+		jTextField1.setText("");
+    }                                             
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here://取消的button
-        doClose(RET_CANCEL);
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    	nowVo.setNumOfRTs(2);
+    	jTextField1.setText("");
     }     
     
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:   上一步
-    	doClose(RET_CANCEL);
-    	ModelGuideDialog1 guiDialog =  new ModelGuideDialog1(CreateGui.getApp(), true);  
-        guiDialog.pack();
-        guiDialog.setLocationRelativeTo(null);
-        guiDialog.setVisible(true);
-    	
-    }
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    	nowVo.setNumOfRTs(3);
+    	jTextField1.setText("");
+    }                                             
 
+                                        
+
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    	nowVo.setNumOfRTs(4);
+    	jTextField1.setText("");
+    }   
     
+    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    	nowVo.setNumOfRTs(5);
+    	jTextField1.setText("");
+    }                                             
+
+    private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    	nowVo.setNumOfRTs(6);
+    	jTextField1.setText("");
+    }   
+    
+    private void jRadioButton7ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    	nowVo.setNumOfRTs(7);
+    	jTextField1.setText("");
+    }                                             
+
+
+    private void jRadioButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    	nowVo.setNumOfRTs(8);
+    	jTextField1.setText("");
+    }   
+    
+    private void jRadioButton9ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    	nowVo.setNumOfRTs(9);
+    	jTextField1.setText("");
+    }  
+                                           
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
@@ -312,6 +465,7 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify
+    private GuideVO nowVo;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -320,6 +474,7 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -327,7 +482,13 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButton6;
+    private javax.swing.JRadioButton jRadioButton7;
+    private javax.swing.JRadioButton jRadioButton8;
+    private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration
     private int returnStatus = RET_CANCEL;
 
@@ -336,5 +497,27 @@ public class ModelGuideDialog2 extends javax.swing.JDialog {
     /** A return status code - returned if OK button has been pressed */
     public static final int RET_OK = 1;
     
-    private int numOfRT = 2;//默认 那个radioButton放在2个上面
+    
+    
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here://取消的button
+        doClose(RET_CANCEL);
+    }     
+    
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:   上一步
+    	String num = jTextField1.getText().trim();
+     	if(!num.equals(""))
+    	{
+    		int numOfRts = Integer.parseInt(num);
+    		nowVo.setNumOfRTs(numOfRts);
+    	}
+    	doClose(RET_CANCEL);
+    	ModelGuideDialog1 guiDialog =  new ModelGuideDialog1(CreateGui.getApp(), true, nowVo);  System.out.println(nowVo+"*********");
+        guiDialog.pack();
+        guiDialog.setLocationRelativeTo(null);
+        guiDialog.setVisible(true);
+    	
+    }
 }

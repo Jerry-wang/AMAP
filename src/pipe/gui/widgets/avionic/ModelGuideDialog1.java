@@ -11,6 +11,8 @@
 
 package pipe.gui.widgets.avionic;
 
+import java.awt.event.ActionEvent;
+
 import pipe.gui.CreateGui;
 
 /**
@@ -24,6 +26,15 @@ public class ModelGuideDialog1 extends javax.swing.JDialog {
     public ModelGuideDialog1(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        vo.setTypeOfBus(GuideVO.THE_AFDX);
+        
+    }
+    
+    public ModelGuideDialog1(java.awt.Frame parent, boolean modal, GuideVO vo) {
+        super(parent, modal);
+        this.vo = vo;
+        initComponents();
+        
     }
 
     /** This method is called from within the constructor to
@@ -44,11 +55,11 @@ public class ModelGuideDialog1 extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButtonAFDX = new javax.swing.JRadioButton();
+        jRadioButton1553B = new javax.swing.JRadioButton();
+        jRadioButtonCAN = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabeljLabelIntroduction = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("建模向导");
@@ -71,7 +82,7 @@ public class ModelGuideDialog1 extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 290, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -101,64 +112,86 @@ public class ModelGuideDialog1 extends javax.swing.JDialog {
                 jButton3ActionPerformed(evt);
             }
         });
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("AFDX网络");
-        jRadioButton1.setAutoscrolls(true);
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        
+        buttonGroup1.add(jRadioButtonAFDX);
+        if(vo.getTypeOfBus()==0||vo.getTypeOfBus()==GuideVO.THE_AFDX)
+        {
+        	jRadioButtonAFDX.setSelected(true);
+        	
+        }
+        jRadioButtonAFDX.setText("AFDX网络");
+        jRadioButtonAFDX.setAutoscrolls(true);
+        jRadioButtonAFDX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                jRadioButtonAFDXActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("1553B总线");
+        buttonGroup1.add(jRadioButton1553B);
+        if(vo!=null&&vo.getTypeOfBus()==GuideVO.THE_1553B)
+        {
+        	jRadioButton1553B.setSelected(true);
+        	
+        }
+        jRadioButton1553B.setText("1553B总线");
+        jRadioButton1553B.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1553bActionPerformed(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("CAN总线");
+        buttonGroup1.add(jRadioButtonCAN);
+        if(vo!=null&&vo.getTypeOfBus()==GuideVO.THE_CAN)
+        {
+        	jRadioButtonCAN.setSelected(true);
+        	
+        }
+        jRadioButtonCAN.setText("CAN总线");
+        jRadioButtonCAN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonCANActionPerformed(evt); 
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton3))
-                .addContainerGap(74, Short.MAX_VALUE))
+                    .addComponent(jRadioButton1553B)
+                    .addComponent(jRadioButtonAFDX)
+                    .addComponent(jRadioButtonCAN))
+                .addGap(14, 14, 14))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jRadioButton1)
+                .addGap(49, 49, 49)
+                .addComponent(jRadioButtonAFDX)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton2)
+                .addComponent(jRadioButton1553B)
                 .addGap(2, 2, 2)
-                .addComponent(jRadioButton3)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addComponent(jRadioButtonCAN)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
-        jLabel4.setText("此处为相关介绍");
+//        jLabeljLabelIntroduction.setText("航空电子全双工交换式以太网AFDX(Avionics Full Duplex Switched Ethernet)"); //默认是在AFDX上面的
+        jLabeljLabelIntroduction.setText("<html>航空电子全双工交换式以太网<br/>AFDX(Avionics Full Duplex Switched Ethernet)</html>");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(140, Short.MAX_VALUE))
+            .addComponent(jLabeljLabelIntroduction, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jLabel4)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addComponent(jLabeljLabelIntroduction, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -167,17 +200,17 @@ public class ModelGuideDialog1 extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(379, Short.MAX_VALUE)
+                .addContainerGap(495, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
                 .addGap(8, 8, 8))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(126, 126, 126)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,13 +228,28 @@ public class ModelGuideDialog1 extends javax.swing.JDialog {
                     .addComponent(jButton2))
                 .addContainerGap())
         );
-
         pack();
     }// </editor-fold>
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void jRadioButtonCANActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	String theCanBIntro = "CAN总线，控制器局域网络(Controller Area Network, CAN)";
+    	jLabeljLabelIntroduction.setText(theCanBIntro); 
+    	this.vo.setTypeOfBus(GuideVO.THE_CAN);
+	}
+
+    private void jRadioButton1553bActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	String the1553BIntro = "<html><p>1553B总线即MIL-STD-1553总线</p><p>是飞机内部时分制命令/响应式多路复用数据总线</p></html>";
+    	jLabeljLabelIntroduction.setText(the1553BIntro); 
+    	this.vo.setTypeOfBus(GuideVO.THE_1553B);
+	}
+
+	private void jRadioButtonAFDXActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
-    	System.out.println("111");
+    	String afdxIntro = "<html><p>航空电子全双工交换式以太网</p><p>AFDX(Avionics Full Duplex Switched Ethernet)</p></html>";
+    	jLabeljLabelIntroduction.setText(afdxIntro);
+    	this.vo.setTypeOfBus(GuideVO.THE_AFDX);
     }                                             
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,16 +259,15 @@ public class ModelGuideDialog1 extends javax.swing.JDialog {
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    	System.out.println("@#$");
-    	doClose(RET_OK);//下一步 button
-    	
-    	ModelGuideDialog2 guiDialog1 =  new ModelGuideDialog2(CreateGui.getApp(), true);  
+     	doClose(RET_OK);//下一步 button
+     	ModelGuideDialog2 guiDialog1 =  new ModelGuideDialog2(CreateGui.getApp(), true, this.vo);  
         guiDialog1.pack();
         guiDialog1.setLocationRelativeTo(null);
         guiDialog1.setVisible(true);
     }
     
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+
+	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         doClose(RET_CANCEL);
     }
@@ -247,19 +294,20 @@ public class ModelGuideDialog1 extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify
+    private GuideVO vo = new GuideVO();
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabeljLabelIntroduction;//右侧的 关于各个不同总线的介绍
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButtonAFDX;//AFDX
+    private javax.swing.JRadioButton jRadioButton1553B;//1553B 
+    private javax.swing.JRadioButton jRadioButtonCAN;//CAN总线啊
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration
     private int returnStatus = RET_CANCEL;

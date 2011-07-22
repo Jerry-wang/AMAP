@@ -1,15 +1,14 @@
 package pipe.gui.widgets.avionic;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Vector;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 
 import pipe.gui.CreateGui;
-import pipe.gui.widgets.FileBrowser;
+import pipe.gui.widgets.avionic.GuideVO.RTInfo;
 
 /**
  *
@@ -18,10 +17,22 @@ import pipe.gui.widgets.FileBrowser;
  */
 public class ModelGuideDialog5 extends javax.swing.JDialog {
 
-    /** Creates new form ModelGuideDialog1 */
-    public ModelGuideDialog5(java.awt.Frame parent, boolean modal) {
+    
+
+	/** Creates new form ModelGuideDialog1 */
+    public ModelGuideDialog5(java.awt.Frame parent, boolean modal, GuideVO vo) {
         super(parent, modal);
-        initComponents();
+        nowVo = vo;
+        //这里就是 先备份一下 备份到一个 map里面 但是呢 原来的 nowVo.getPriorityQueue()里面 还不能删除
+        this.infoMap  = new LinkedHashMap<String, GuideVO.RTInfo>();
+        for(int i=0; i<nowVo.getNumOfRTs(); i++)
+        {
+        	GuideVO.RTInfo info = nowVo.getPriorityQueue().remove();
+        	infoMap.put(info.id, info);
+        	nowVo.getPriorityQueue().add(info); //remove了  又add回来
+        }
+        
+		initComponents();
     }
 
     /** This method is called from within the constructor to
@@ -49,10 +60,17 @@ public class ModelGuideDialog5 extends javax.swing.JDialog {
         
          
         
-        listModelBefore = new DefaultListModel();
-        listModelBefore.addElement("RT1");
+        listModelBefore = new DefaultListModel();  System.out.println("			listModelBefore"+nowVo.getPriorityQueue().size());
+        int size = nowVo.getPriorityQueue().size();
+        for(int i=0; i<size; i++)
+        {	
+        	GuideVO.RTInfo info = nowVo.getPriorityQueue().remove();
+        	listModelBefore.addElement(info.id);
+        	nowVo.getPriorityQueue().add(info);
+        }
+       /* listModelBefore.addElement("RT1");
         listModelBefore.addElement("RT2");
-        listModelBefore.addElement("RT3");
+        listModelBefore.addElement("RT3");*/
         
         listModelAfter = new DefaultListModel();
         
@@ -189,7 +207,7 @@ public class ModelGuideDialog5 extends javax.swing.JDialog {
                 .addGap(20, 20, 20))
         );
 
-        jLabelTips.setText("这里应该是一段，提示说明文字");
+        jLabelTips.setText("<html>点击左侧选项到右侧<br/>右侧选项从上至下的优先级递减</html>");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -258,7 +276,7 @@ public class ModelGuideDialog5 extends javax.swing.JDialog {
     private void jButtonPrevStepActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
     	doClose(RET_CANCEL);
-    	ModelGuideDialog4 guiDialog =  new ModelGuideDialog4(CreateGui.getApp(), true);  
+    	ModelGuideDialog4 guiDialog =  new ModelGuideDialog4(CreateGui.getApp(), true, nowVo);  
     	guiDialog.pack();
     	guiDialog.setLocationRelativeTo(null);
     	guiDialog.setVisible(true);
@@ -266,8 +284,25 @@ public class ModelGuideDialog5 extends javax.swing.JDialog {
 
     private void jButtonDoneActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
+    	
+    	int listModelAfterSize = listModelAfter.getSize();
+    	if(listModelAfterSize< nowVo.getNumOfRTs())
+    	{
+    		JOptionPane.showMessageDialog(this, "请确认优先级排序", "Warning",
+					JOptionPane.WARNING_MESSAGE);
+    		return;
+    	}
+    	
+    	for(int i=0; i<listModelAfterSize; i++)
+    	{
+    		String key = (String) listModelAfter.get(i);
+    		RTInfo info1 = infoMap.get(key);
+    		nowVo.getPriorityQueue().add(info1); 
+    		nowVo.getPriorityQueue().remove();
+    	}
+    	
     	System.out.print("优先级：");
-    	System.out.println(listModelAfter.get(0)+">"+listModelAfter.get(1)+">"+listModelAfter.get(2));
+//    	System.out.println(listModelAfter.get(0)+">"+listModelAfter.get(1)+">"+listModelAfter.get(2));
     	System.out.println(System.getProperty("user.dir"));
     	String path = System.getProperty("user.dir")+"//bin//AFDX_3_PRIORITY.xml";
     	File filePath = new File(path);
@@ -283,8 +318,10 @@ public class ModelGuideDialog5 extends javax.swing.JDialog {
 					JOptionPane.WARNING_MESSAGE);
 		}
 		else {
+			
 			System.out.println("有问题");
 		}
+		System.out.println(this.nowVo);
 		doClose(RET_OK);
     }                                               
 
@@ -372,4 +409,6 @@ public class ModelGuideDialog5 extends javax.swing.JDialog {
     /** A return status code - returned if OK button has been pressed */
     public static final int RET_OK = 1;
     private DefaultListModel listModelBefore ,listModelAfter;
+    private Map<String, RTInfo> infoMap ;
+    private GuideVO nowVo;
 }

@@ -9,9 +9,12 @@ import pipe.gui.CreateGui;
 public class ModelGuideDialog4 extends javax.swing.JDialog {
 
     /** Creates new form ModelGuideDialog1 */
-    public ModelGuideDialog4(java.awt.Frame parent, boolean modal) {
+    public ModelGuideDialog4(java.awt.Frame parent, boolean modal, GuideVO vo) {
         super(parent, modal);
+        nowVo = vo;
         initComponents();
+        
+        
     }
 
     /** This method is called from within the constructor to
@@ -126,7 +129,10 @@ public class ModelGuideDialog4 extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setText("这里是对每种调度方式的简单描述");
+//        jLabel4.setText("这里是对每种调度方式的简单描述");
+        
+//        按照对实时性的不同要求将各种类型的消息区分开来，给予固定的优先级
+    	jLabel4.setText("<html>按照对实时性的不同要求将不同虚链路的消息区分开来，给予固定的优先级</html>");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -205,7 +211,7 @@ public class ModelGuideDialog4 extends javax.swing.JDialog {
     private void jButtonPrevStepActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     	doClose(RET_CANCEL);
-    	ModelGuideDialog3 guiDialog =  new ModelGuideDialog3(CreateGui.getApp(), true, 3);  
+    	ModelGuideDialog3 guiDialog =  new ModelGuideDialog3(CreateGui.getApp(), true, nowVo);  
     	guiDialog.pack();
     	guiDialog.setLocationRelativeTo(null);
     	guiDialog.setVisible(true);
@@ -213,26 +219,31 @@ public class ModelGuideDialog4 extends javax.swing.JDialog {
 
     private void jButtonNextStepActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-    	//这里 根据typeOfSchedule 来判断是 完成 还是有下一步
+    	//这里 根据typeOfSchedule 来判断是 完成 还是有下一步  其他的调度方式 先不做
     	System.out.println("这里 根据typeOfSchedule 来判断是 完成 还是有下一步");
     	doClose(RET_OK);
-    	ModelGuideDialog5 guiDialog =  new ModelGuideDialog5(CreateGui.getApp(), true);  
+    	ModelGuideDialog5 guiDialog =  new ModelGuideDialog5(CreateGui.getApp(), true, nowVo);  
     	guiDialog.pack();
     	guiDialog.setLocationRelativeTo(null);
     	guiDialog.setVisible(true);
+    	System.out.println(nowVo);
     }                                        
 
     private void jRadioButtonPriorityActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     	System.out.println("优先级");
     	typeOfSchedule = 0;
+    	jLabel4.setText("<html>按照对实时性的不同要求将不同虚链路的消息区分开来，给予固定的优先级</html>");
     	jButtonNextStep.setText("下一步");
+    	nowVo.setWayOfSchedule(GuideVO.PRIORITY);
     }
 
     private void jRadioButtonOnebyoneActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     	System.out.println("轮询式");
     	typeOfSchedule = 1;
+    	jLabel4.setText("<html>依照平等的原则，依次查看每个虚链路端口是否有数据需要传送</html>");
+    	nowVo.setWayOfSchedule(GuideVO.ONE_BY_ONE);
     	jButtonNextStep.setText("生成模型");
     }
 
@@ -240,6 +251,8 @@ public class ModelGuideDialog4 extends javax.swing.JDialog {
         // TODO add your handling code here:
     	System.out.println("先来先服务");
     	typeOfSchedule = 2;
+    	jLabel4.setText("<html>简单的调度策略，按照时间先后顺序，调度虚链路</html>");
+    	nowVo.setWayOfSchedule(GuideVO.FIFO);
     	jButtonNextStep.setText("生成模型");
     }
     private void doClose(int retStatus) {
@@ -287,4 +300,7 @@ public class ModelGuideDialog4 extends javax.swing.JDialog {
     /** A return status code - returned if OK button has been pressed */
     public static final int RET_OK = 1;
     private int typeOfSchedule = 0;//0：优先级， 1：轮询 ，2：抢占
+    
+    
+     private GuideVO nowVo;
 }
