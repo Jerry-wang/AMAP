@@ -211,7 +211,7 @@ public class ModelGuideDialog4 extends javax.swing.JDialog {
     private void jButtonPrevStepActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     	doClose(RET_CANCEL);
-    	ModelGuideDialog3 guiDialog =  new ModelGuideDialog3(CreateGui.getApp(), true, nowVo);  
+    	ModelGuideDialog3 guiDialog =  new ModelGuideDialog3(CreateGui.getApp(), true, nowVo); 
     	guiDialog.pack();
     	guiDialog.setLocationRelativeTo(null);
     	guiDialog.setVisible(true);

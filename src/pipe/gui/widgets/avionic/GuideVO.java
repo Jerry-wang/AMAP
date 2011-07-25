@@ -33,11 +33,20 @@ public class GuideVO {
 	public final static int PERIOD_MESSAGE = 302;
 	
 	static class RTInfo{
-		public RTInfo(String id, int typeOfMessage, int delay) {
+		public RTInfo(String id, int typeOfMessage, int delay/*, String remark*/) {
 			super();
 			this.id = id;
 			this.typeOfMessage = typeOfMessage;
 			this.delay = delay;
+//			this.remark = remark;
+		}
+		
+		public RTInfo(String id, int typeOfMessage, int delay, String remark) {
+			super();
+			this.id = id;
+			this.typeOfMessage = typeOfMessage;
+			this.delay = delay;
+			this.remark = remark;
 		}
 		String id;
 		int typeOfMessage;
@@ -101,7 +110,7 @@ public class GuideVO {
 		for(int i=0; i<this.numOfRTs; i++)
 		{
 			RTInfo info = priorityQueue.remove();
-			strQueue+="~~"+info.id+"-"+info.typeOfMessage+"-"+info.delay+"~~";
+			strQueue+="~~"+info.id+"-"+info.typeOfMessage+"-"+info.delay+"~~"+info.remark;
 			priorityQueue.add(info);
 		}
  		return "^^^^^^^^^^^"+typeOfBus+"|"+numOfRTs+"|"+wayOfSchedule+strQueue;

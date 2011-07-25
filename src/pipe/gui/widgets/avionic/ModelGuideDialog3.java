@@ -63,6 +63,9 @@ public class ModelGuideDialog3 extends javax.swing.JDialog {
     			jButtonArray5[i] = new javax.swing.JButton();
     		}
     		
+    		
+    		
+    		
 //    		jLabel1_1 = new javax.swing.JLabel();
 //    		jLabel1_2 = new javax.swing.JLabel();
 //    		jLabel1_3 = new javax.swing.JLabel();
@@ -195,6 +198,7 @@ public class ModelGuideDialog3 extends javax.swing.JDialog {
                 });
                 jTextFieldArray4[i].setToolTipText("周期：单位ms");
                 jButtonArray5[i].setText("添加备注");
+                jButtonArray5[i].setActionCommand("jButtonArray_"+(i));
                 jButtonArray5[i].addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton5_1ActionPerformed(evt);
@@ -577,6 +581,15 @@ public class ModelGuideDialog3 extends javax.swing.JDialog {
     private void jButton5_1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     	System.out.println("弹出一个小框，然后填写备注");
+    	
+    	String command = evt.getActionCommand();
+    	int buttonNumber = Integer.parseInt(command.substring(command.length()-1));
+    	
+    	String  remark = JOptionPane.showInputDialog("请输入备注");
+    	if(remark!=null)
+    		remarkOfRT[buttonNumber] = remark;
+    	System.out.println(remark+buttonNumber);
+    	
     }
 
     
@@ -651,7 +664,7 @@ public class ModelGuideDialog3 extends javax.swing.JDialog {
     	Queue<GuideVO.RTInfo> priorityQueue = new LinkedList<GuideVO.RTInfo>();
     	for(int i=0; i<num; i++)
     	{
-    		GuideVO.RTInfo info = new GuideVO.RTInfo(this.id[i], this.typeOfMessage[i], this.delay[i]);//备注暂时先没加
+    		GuideVO.RTInfo info = new GuideVO.RTInfo(this.id[i], this.typeOfMessage[i], this.delay[i] , this.remarkOfRT[i]);//备注暂时先没加
     		priorityQueue.add(info);
     	}
 //    	GuideVO.RTInfo info1 = new GuideVO.RTInfo(this.id1, this.typeOfMessage1, this.delay1);//备注暂时先没加
@@ -751,6 +764,8 @@ public class ModelGuideDialog3 extends javax.swing.JDialog {
     private String[] id = new String[100];
    
     private int[] typeOfMessage = new int[100];
+    
+    private String[] remarkOfRT = new String[100];
     
     private Set<String> idCheckSet = new HashSet<String>();
     
