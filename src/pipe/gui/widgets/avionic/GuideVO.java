@@ -13,7 +13,7 @@ public class GuideVO {
 	private int typeOfBus = 0;
 	private int numOfRTs = 1;
 	private Queue<RTInfo> priorityQueue = new LinkedList<RTInfo>(); //直接顺序就代表了 优先级了
-	private int wayOfSchedule = 101;
+	private int wayOfSchedule = PRIORITY;
 	
 	
 	GuideVO()

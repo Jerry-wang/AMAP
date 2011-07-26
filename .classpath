@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="E:/实验室/PIPE SRC/Pipe 3.0/Pipe 3.0/lib/tools.jar"/>
 	<classpathentry kind="lib" path="E:/Java/libs/junit4.8.2/junit-4.8.2.jar"/>
 	<classpathentry kind="lib" path="E:/Java/libs/poi-3.0.2-FINAL.jar"/>
+	<classpathentry kind="lib" path="E:/实验室/PIPE SRC/Pipe 3.0/Pipe 3.0/lib/jdom.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -300,9 +300,15 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 	public LinkedList<TokenClass> getTokenClasses() {
 		if (tokenClasses == null) {
 			tokenClasses = new LinkedList<TokenClass>();
-			tokenClasses.add(new TokenClass(true, "黑(默认)", Color.black));
+		/*	tokenClasses.add(new TokenClass(true, "黑(默认)", Color.black));
 			tokenClasses.add(new TokenClass(true, "红", Color.red));
-			tokenClasses.add(new TokenClass(true, "绿", Color.green));
+			tokenClasses.add(new TokenClass(true, "绿", Color.green));*/
+			
+			tokenClasses.add(new TokenClass(true, "Black", Color.black));
+			tokenClasses.add(new TokenClass(true, "Red", Color.red));
+			tokenClasses.add(new TokenClass(true, "Green", Color.green));
+			
+			
 //			tokenClasses.add(new TokenClass(true, "Default", Color.black));
 			this.setActiveTokenClass(tokenClasses.get(0));
 		}
@@ -365,8 +371,12 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 	 * @see pipe.common.dataLayer.DataLayerInterface#getTokenClassFromID(java.lang.String)
 	 */
 	public TokenClass getTokenClassFromID(String id){
+		System.out.println("ididdidididid    "+id);
 		TokenClass isNull = null;
+		System.out.println(tokenClasses);
+		tokenClasses = getTokenClasses();
 		for(TokenClass tc:tokenClasses){
+			System.out.println(tc.getID());
 			if(tc.getID().equals(id))
 				return tc;
 		}
@@ -1413,7 +1423,7 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 			if(stringArray.length == 1){
 				if(getActiveTokenClass() == null){
 					Color c = new Color(0, 0, 0);
-					TokenClass tc = new TokenClass(true, "Default", c);
+					TokenClass tc = new TokenClass(true, "Black", c);
 					addTokenClass(tc);
 					Marking marking = new Marking(tc, Integer.valueOf(stringArray[0]));
 					initialMarkingInput.add(marking);
@@ -1428,6 +1438,7 @@ public class DataLayer extends Observable implements Cloneable, DataLayerInterfa
 				while (i < stringArray.length) {
 					// In case for some reason there are commas between markings
 					stringArray[i] = stringArray[i].trim();
+					System.out.println(stringArray[i]);
 					Marking marking = new Marking(this.getTokenClassFromID(stringArray[i]), Integer
 							.valueOf(stringArray[i + 1]));
 					initialMarkingInput.add(marking);

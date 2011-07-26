@@ -640,7 +640,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		LinkedList<TokenClass> tokenClasses;
 		if (appModel == null) {
 			tokenClasses = new LinkedList<TokenClass>();
-			TokenClass tc = new TokenClass(true, "默认(黑)", Color.black);
+			TokenClass tc = new TokenClass(true, "Black", Color.black);
 //			TokenClass tc = new TokenClass(true, "Default", Color.black);
 			tokenClasses.add(tc);
 		} else {

@@ -303,15 +303,18 @@ public class ModelGuideDialog5 extends javax.swing.JDialog {
     	
     	System.out.print("优先级：");
 //    	System.out.println(listModelAfter.get(0)+">"+listModelAfter.get(1)+">"+listModelAfter.get(2));
-    	System.out.println(System.getProperty("user.dir"));
-    	String path = System.getProperty("user.dir")+"//bin//AFDX_3_PRIORITY.xml";
+     	
+    	//这里根据 nowVo生成一个 文件 xxxxx.xml  然后把它读出来 就ok了  这里的关键是 生成这个xml文件  
+    	String path = ModelFactory.buildModel(nowVo);
+    	
+//    	String path = System.getProperty("user.dir")+"//bin//AFDX_3_PRIORITY.xml";
     	File filePath = new File(path);
 		if ((filePath != null) && filePath.exists()
 				&& filePath.isFile() && filePath.canRead()) {
 			CreateGui.userPath = filePath.getParent();
 			CreateGui.getApp().createNewTab(filePath, false);
 		}
-		if ((filePath != null) && (!filePath.exists())) {
+		if ((filePath != null) && (!filePath.exists())) { 
 			String message = "File \"" + filePath.getName()
 					+ "\" does not exist.";
 			JOptionPane.showMessageDialog(null, message, "Warning",
@@ -319,9 +322,9 @@ public class ModelGuideDialog5 extends javax.swing.JDialog {
 		}
 		else {
 			
-			System.out.println("有问题");
+ 			System.out.println("有问题");
 		}
-		System.out.println(this.nowVo);
+//		System.out.println(this.nowVo);
 		doClose(RET_OK);
     }                                               
 
