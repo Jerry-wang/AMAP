@@ -82,7 +82,7 @@ public class Transition extends PlaceTransitionObject {
 	public static final int TRANSITION_WIDTH = TRANSITION_HEIGHT / 3;
 	
 	/** Place Width */
-	public static final  int TRANSITION_WIDTH_NARROW = TRANSITION_HEIGHT / 5;
+	public static final  int TRANSITION_WIDTH_NARROW = TRANSITION_HEIGHT / 6;
 
 	private int angle;
 	private boolean enabled = false;
