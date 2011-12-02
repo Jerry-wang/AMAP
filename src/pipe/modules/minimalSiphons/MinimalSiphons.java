@@ -43,7 +43,7 @@ public class MinimalSiphons
    private DataLayerInterface pnmlData;
    
    /* */
-   private static final String MODULE_NAME = "Minimal Siphons And Minimal Traps";
+   private static final String MODULE_NAME = "最小虹吸/陷阱";
    
    private PetriNetChooserPanel sourceFilePanel;
    private ResultsHTMLPane results;

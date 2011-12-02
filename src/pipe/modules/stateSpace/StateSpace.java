@@ -32,7 +32,8 @@ public class StateSpace
         implements Module {
    
    // Main Frame
-   private static final String MODULE_NAME = "State Space Analysis";
+//   private static final String MODULE_NAME = "State Space Analysis";
+   private static final String MODULE_NAME = "状态空间分析";
    
    private PetriNetChooserPanel sourceFilePanel;
    private ResultsHTMLPane results;

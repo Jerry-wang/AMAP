@@ -42,7 +42,7 @@ public class InvariantAnalysis
    private PNMatrix IncidenceMatrix;
    private PNMatrix PInvariants;
    private PNMatrix TInvariants;
-   private static final String MODULE_NAME = "Invariant Analysis";
+   private static final String MODULE_NAME = "不变量分析";
    private PetriNetChooserPanel sourceFilePanel;
    private ResultsHTMLPane results;
 

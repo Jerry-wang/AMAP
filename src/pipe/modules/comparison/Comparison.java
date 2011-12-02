@@ -36,7 +36,8 @@ public class Comparison
         implements Module {
 
    // Main Frame
-   private static final String MODULE_NAME = "Comparison";
+//   private static final String MODULE_NAME = "Comparison";
+   private static final String MODULE_NAME = "对比";
    private PetriNetChooserPanel sourceFilePanel;
    private PetriNetChooserPanel comparisonFilePanel;
    private ResultsHTMLPane results;

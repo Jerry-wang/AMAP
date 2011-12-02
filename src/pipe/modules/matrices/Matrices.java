@@ -30,7 +30,8 @@ import pipe.modules.Module;
 public class Matrices
         implements Module {
 
-   private static final String MODULE_NAME = "Incidence & Marking";
+//   private static final String MODULE_NAME = "Incidence & Marking";
+   private static final String MODULE_NAME = "关联矩阵";
    private PetriNetChooserPanel sourceFilePanel;
    private ResultsHTMLPane results;
 

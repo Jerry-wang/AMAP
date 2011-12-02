@@ -63,7 +63,9 @@ import pipe.modules.Module;
 public class Simulation extends SwingWorker
         implements Module {
    
-   private static final String MODULE_NAME = "Simulation";
+//   private static final String MODULE_NAME = "Simulation";
+   
+   private static final String MODULE_NAME = "模拟仿真";
    
    private PetriNetChooserPanel sourceFilePanel;
    private ResultsHTMLPane results;

@@ -35,7 +35,8 @@ import pipe.modules.Module;
 public class Classification
         implements Module {
 
-   private static final String MODULE_NAME = "Classification";
+//   private static final String MODULE_NAME = "Classification";
+   private static final String MODULE_NAME = "分类";
    private PetriNetChooserPanel sourceFilePanel;
    private ResultsHTMLPane results;
 

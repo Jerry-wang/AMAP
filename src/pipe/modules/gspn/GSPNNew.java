@@ -52,8 +52,9 @@ public class GSPNNew
         extends GSPN
         implements Module{
 
-   private static final String MODULE_NAME = "GSPN Analysis";
-   private File output = new File("GSPN_Analysis.html");
+//   private static final String MODULE_NAME = "GSPN Analysis";
+	private static final String MODULE_NAME = "GSPN分析";
+	private File output = new File("GSPN_Analysis.html");
 
    @Override
    public void run(DataLayer pnmlData) {

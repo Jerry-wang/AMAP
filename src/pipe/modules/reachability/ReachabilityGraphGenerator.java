@@ -66,7 +66,9 @@ import pipe.modules.Module;
 public class ReachabilityGraphGenerator 
         implements Module {
 
-   private static final String MODULE_NAME = "Reachability/Coverability Graph";
+   private static final String MODULE_NAME = "可达图";
+//   private static final String MODULE_NAME = "Reachability/Coverability Graph";
+
    private PetriNetChooserPanel sourceFilePanel;
    private static ResultsHTMLPane results;
    private EscapableDialog guiDialog = 

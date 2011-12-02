@@ -484,9 +484,9 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 
 		JMenu helpMenu = new JMenu("帮助(H) ");
 		helpMenu.setMnemonic('H');
-		helpAction = new HelpBox("帮助", "查看帮助", "F1",
-				"index.htm");
-		addMenuItem(helpMenu, helpAction);
+//		helpAction = new HelpBox("帮助", "查看帮助", "F1",
+//				"index.htm");
+//		addMenuItem(helpMenu, helpAction);
 
 		JMenuItem aboutItem = helpMenu.add("关于本软件");
 		aboutItem.addActionListener(this); // Help - About is implemented
@@ -578,7 +578,7 @@ public class GuiFrame extends JFrame implements ActionListener, Observer {
 		animationToolBar.setVisible(false);
 
 		toolBar.addSeparator();
-		addButton(toolBar, helpAction);
+//		addButton(toolBar, helpAction);
 
 		for (int i = 0; i < toolBar.getComponentCount(); i++) {
 			toolBar.getComponent(i).setFocusable(false);
