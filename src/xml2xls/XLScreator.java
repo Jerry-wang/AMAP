@@ -65,7 +65,7 @@ public class XLScreator {
         // Create the Main sheet
         this.main_s = this.wb.createSheet("Main");
         for(int i = 0; i< 9; i++) {
-            this.main_s.setColumnWidth(i, 4500);
+            this.main_s.setColumnWidth((short)i, (short)4500);
         }
         this.main_row = 0;
     }
@@ -92,8 +92,8 @@ public class XLScreator {
      *                      a text, <code>FALSE</code> if it's a number.
      */
     public void writeCell(String text, int col, int style, boolean text_number) {
-        this.c = this.r.createCell(col);
-        this.main_c = this.main_r.createCell(col);
+        this.c = this.r.createCell((short) col);
+        this.main_c = this.main_r.createCell((short) col);
         if(0 == style) {
             this.c.setCellStyle(this.cs);
             this.main_c.setCellStyle(this.cs);
@@ -120,7 +120,7 @@ public class XLScreator {
     public void newSheet(String name) {
         this.s = this.wb.createSheet(name);
         for(int i = 0; i< 9; i++) {
-            this.s.setColumnWidth(i, 4500);
+            this.s.setColumnWidth((short)i, (short)4500);
         }
         this.row = 0;
     }
